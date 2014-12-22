@@ -10,4 +10,8 @@ Project: #1 - Single Page Application
 Version: 1
 
 ###Project Description
-Coming soon...
+A single page application built with Knockout.js
+
+Follows MVVM design princples
+
+APIs used: Google Maps, Flickr, Wikipedia
