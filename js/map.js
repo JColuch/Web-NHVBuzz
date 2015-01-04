@@ -2,7 +2,13 @@
 function initialize() {
   var mapOptions = {
     center: { lat: 41.3100, lng: -72.9236 },
-    zoom: 13
+    zoom: 13,
+    panControl: false,
+    zoomControl: false,
+    mapTypeControl: false,
+    scaleControl: false,
+    streetViewControl: false,
+    overviewMapControl: false
   };
   var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 }
