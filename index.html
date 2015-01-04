@@ -5,11 +5,29 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>New Haven Explorer</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/styles.css">
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
   <script src="js/map.js"></script>
 </head>
 <body>
+  <header class="header">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <h1 class="logo">City Explorer</h1>
+        </div>
+        <div class="col-md-9">
+          <!-- input box -->
+          <input type="text" class="search-bar" data-bind="value: ">
+          <button type="submit">Search</button>
+        </div>
+      </div> <!-- End .row -->
+    </div> <!-- End .container -->
+  </header>
+  <div class="side-bar">
+  </div>
   <div id="map-canvas"></div>
+  <script src="js/knockout.js"></script>
 </body>
 </html>
