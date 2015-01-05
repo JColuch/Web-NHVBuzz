@@ -9,22 +9,77 @@ body,
 .header {
   position: fixed;
   top: 0;
-  height: 50px;
+  height: 40px;
   width: 100%;
+  padding: 0 10px;
+  min-width: 970px;
   z-index: 100;
   background: rgba(255, 255, 255, .9);
+  border-bottom: 1px solid #ddd;
 }
 
 .logo {
-  margin: 5px;
+  display: inline-block;
+  margin: 3px 0;
   font-size: 28px;
+  color: #34AA78;
 }
+
+
+
+
+.search-bar {
+  display: inline-block;
+  margin: 8px 0 0 89px;
+  vertical-align: top;
+}
+.search-input {
+  width: 450px;
+/*  height: 30px;*/
+}
+
+
+
 
 .side-bar {
   position: fixed;
-  top: 50px;
+  top: 40px;
   height: 100%;
   width: 250px;
   z-index: 100;
-  background: rgba(255, 255, 255, .6);  
+  background: rgba(255, 255, 255, .65);  
 }
+
+
+
+.side-bar-title {
+  margin: 0;
+  padding: 10px 15px;
+  font-size: 18px;
+  background: rgba(255, 255, 255, .7);
+  border-bottom: 1px solid #eee;
+}
+
+.place-listing {
+  padding: 5px 10px 5px 20px;
+  color: #444;
+}
+
+.place-listing:hover {
+  cursor: pointer;
+  background: rgba(255, 255, 255, .8);  
+}
+
+.place-title {
+  margin: 0;
+  font-size: 18px;
+}
+
+.place-data {
+  margin: 0;
+}
+
+
+
+
+
