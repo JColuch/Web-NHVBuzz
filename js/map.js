@@ -49,8 +49,12 @@ var Placemarker = function(data) {
 var ViewModel = function() {
   var self = this;
 
-  var map,
-      infoWindow;
+  var map;
+  var infoWindow;
+
+  self.searchTerm = ko.observable();
+  self.sideBarTitle = ko.observable();
+  self.sideBarTitle("Places");
 
   // Create map and append to index.html
   // Source: SOURCE: https://github.com/udacity/
@@ -73,7 +77,7 @@ var ViewModel = function() {
     map = new google.maps.Map(document.getElementById("map-canvas"),
                               mapOptions);
     
-    getPlaces();
+    //self.getPlaces();
   }
 
   // On load initalize map
@@ -82,15 +86,25 @@ var ViewModel = function() {
 
   // SOURCE: SOURCE: https://github.com/udacity/frontend-nanodegree-resume/
   // blob/master/js/helper.js
-  function getPlaces() {
-    var service = new google.maps.places.PlacesService(map);
+  self.getPlaces =function(formData) {
+    if (formData) {
+      var searchTerm = this.searchTerm();
+      this.searchTerm("");
 
+      // Update Side Bar Title
+      var title = searchTerm.charAt(0).toUpperCase() + searchTerm.slice(1);
+      self.sideBarTitle(title);
+    }
+
+    var service = new google.maps.places.PlacesService(map);
+    
     var request = {
       location: { lat: 41.3100, lng: -72.924 },
       radius: '500',
-      query: "restaurant"
+      query: searchTerm || "restaurant"
     };
 
+    console.log(request);
     service.textSearch(request, callback);
   }
 
@@ -141,7 +155,6 @@ var ViewModel = function() {
       self.placeMarkerList.push(new Placemarker(place));
     });
   }
-
 
 
 
