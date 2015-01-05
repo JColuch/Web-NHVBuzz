@@ -47,25 +47,29 @@ var Placemarker = function(data) {
 \* --------------------------- */
 
 var ViewModel = function() {
+  // Data
+
   var self = this;
+  var markers = [];
 
   var map;
   var infoWindow;
 
   self.searchTerm = ko.observable();
   self.sideBarTitle = ko.observable();
+  self.placeList = ko.observableArray([]);
+
   self.sideBarTitle("Places");
 
-  // Create map and append to index.html
-  // Source: SOURCE: https://github.com/udacity/
-  // frontend-nanodegree-resume/blob/master/js/helper.js
+  // Operations
+
   function initializeMap() {
 
     var newHaven = { lat: 41.3100, lng: -72.924 };
 
     var mapOptions = {
       center: newHaven,
-      zoom: 13,
+      zoom: 14,
       panControl: false,
       zoomControl: false,
       mapTypeControl: false,
@@ -76,45 +80,47 @@ var ViewModel = function() {
 
     map = new google.maps.Map(document.getElementById("map-canvas"),
                               mapOptions);
-    
-    //self.getPlaces();
   }
 
   // On load initalize map
   google.maps.event.addDomListener(window, "load", initializeMap);
 
 
-  // SOURCE: SOURCE: https://github.com/udacity/frontend-nanodegree-resume/
-  // blob/master/js/helper.js
-  self.getPlaces =function(formData) {
-    if (formData) {
-      var searchTerm = this.searchTerm();
-      this.searchTerm("");
-
-      // Update Side Bar Title
-      var title = searchTerm.charAt(0).toUpperCase() + searchTerm.slice(1);
-      self.sideBarTitle(title);
+  self.getPlaces =function() {
+    // Get search term from input
+    var searchTerm = self.searchTerm();
+    if (!searchTerm) {
+      // If no input default to restaurants
+      searchTerm = "Restaurants";
     }
+
+    // Clear input box
+    self.searchTerm("");
+
+    // Update Side Bar Title
+    var title = searchTerm.charAt(0).toUpperCase() + searchTerm.slice(1);
+    self.sideBarTitle(title);
 
     var service = new google.maps.places.PlacesService(map);
     
     var request = {
       location: { lat: 41.3100, lng: -72.924 },
-      radius: '500',
-      query: searchTerm || "restaurant"
+      radius: '300',
+      query: searchTerm
     };
 
-    console.log(request);
-    service.textSearch(request, callback);
+    service.textSearch(request, self.callback);
   }
 
   // Source: https://developers.google.com/maps/documentation/javascript/
   // places#TextSearchRequests
-  function callback(results, status) {
+  self.callback = function(results, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
+      // Clear old markers
+      deleteMarkers();
+
       for (var i = 0; i < results.length; i++) {
-        var place = results[i];
-        createMarker(results[i]);
+        self.createMarker(results[i]);
       }
 
       loadSideBar(results);
@@ -125,16 +131,22 @@ var ViewModel = function() {
   }
 
 
-  function createMarker(placeData) {
+  self.createMarker = function(placeData) {
     var name = placeData.name;
     var position = placeData.geometry.location;
-    // marker is an object with additional data about the pin for a single location
+
+    // marker is an object with additional data about the pin
+    // for a single location
     var marker = new google.maps.Marker({
       map: map,
       position: position,
       title: name
     });
 
+    // Keep track of markers
+    markers.push(marker);
+
+    // Attach infowidnow
     var infowindow = new google.maps.InfoWindow({
       content: "<h5>" + name + "</h5>"
     });
@@ -144,15 +156,40 @@ var ViewModel = function() {
     });
   }
 
-  this.placeMarkerList = ko.observableArray([]);
+  // SOURCE: https://developers.google.com/maps/documentation/
+  // javascript/examples/marker-remove
+  // Sets the map on all markers in the array.
+  function setAllMap(map) {
+    for (var i = 0; i < markers.length; i++) {
+      markers[i].setMap(map);
+    }
+  }
+
+  // Removes the markers from the map, but keeps them in the array.
+  function clearMarkers() {
+    setAllMap(null);
+  }
+  
+  // Shows any markers currently in the array.
+  function showMarkers() {
+    setAllMap(map);
+  }
+
+  // Deletes all markers in the array by removing references to them.
+  function deleteMarkers() {
+    clearMarkers();
+    markers = [];
+  }
+
+
 
   function loadSideBar(data) {
     // Empty side bar
-    self.placeMarkerList.removeAll();
+    self.placeList.removeAll();
 
     // Load placeMarkers
     data.forEach(function(place) {
-      self.placeMarkerList.push(new Placemarker(place));
+      self.placeList.push(new Placemarker(place));
     });
   }
 
