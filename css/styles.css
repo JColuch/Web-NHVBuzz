@@ -14,7 +14,7 @@ body,
   padding: 0 10px;
   min-width: 970px;
   z-index: 100;
-  background: rgba(255, 255, 255, .9);
+  background: rgba(255, 255, 255, .97);
   border-bottom: 1px solid #ddd;
 }
 
@@ -60,9 +60,15 @@ body,
   border-bottom: 1px solid #eee;
 }
 
-.place-listing {
-  padding: 5px 10px 5px 20px;
+.place-listings {
+  height: 100%;
+  overflow-y: auto;
+  padding: 5px 10px 5px 10px;
   color: #444;
+}
+
+.place-listing {
+  padding: 5px 0;
 }
 
 .place-listing:hover {
