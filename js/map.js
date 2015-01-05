@@ -1,122 +1,236 @@
+/* --------------------------- *\
+  #MODELS
+\* --------------------------- */
+
+var modelFavorites = [
+  {
+    name: "Claire's Cornocopia",
+    location: "New Haven, CT"
+  },
+  {
+    name: "Starbucks Coffee",
+    location: "New Haven, CT"
+  },
+  {
+    name: "Yale University",
+    location: "New Haven, CT"
+  },
+  {
+    name: "Yale-New Haven Hospital",
+    location: "New Haven, CT"
+  },
+  {
+    name: "Blue State Coffee",
+    location: "New Haven, CT"
+  }
+];
+
+
+
+
+
+
+/* --------------------------- *\
+  #CLASSES
+\* --------------------------- */
+var Placemarker = function(data) {
+  this.name = data.name;
+  this.location = data.location;
+}
+
+
+
+
+
+/* --------------------------- *\
+  #VIEWMODEL
+\* --------------------------- */
+
+var ViewModel = function() {
+  var self = this;
+
+  this.placeMarkerList = ko.observableArray([]);
+
+  // // Load placeMarkers
+  modelFavorites.forEach(function(place) {
+    self.placeMarkerList.push(new Placemarker(place));
+  })
+
 // Declare global map and infopane variables
-var map,
-    openInfoWindow;
+  var map,
+      openInfoWindow;
 
-// Create map and append to index.html
-function initialize() {
+  // Create map and append to index.html
+  // Source: SOURCE: https://github.com/udacity/
+  // frontend-nanodegree-resume/blob/master/js/helper.js
+  this.initializeMap = function() {
 
-  var newHaven = { lat: 41.3100, lng: -72.9236 };
+    var newHaven = { lat: 41.3100, lng: -72.924 };
 
-  var mapOptions = {
-    center: newHaven,
-    zoom: 13,
-    panControl: false,
-    zoomControl: false,
-    mapTypeControl: false,
-    scaleControl: false,
-    streetViewControl: false,
-    overviewMapControl: false
-  };
+    var mapOptions = {
+      center: newHaven,
+      zoom: 13,
+      panControl: false,
+      zoomControl: false,
+      mapTypeControl: false,
+      scaleControl: false,
+      streetViewControl: false,
+      overviewMapControl: false
+    };
 
-  map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+    map = new google.maps.Map(document.getElementById("map-canvas"),
+                              mapOptions);
+    console.log("Ran map");
+  }
+
+  // On load initalize map
+  google.maps.event.addDomListener(window, "load", this.initializeMap);
+
   
+  // add placemarkers
+    // pass data from api calls
 
-  /*
-  createMapMarker(placeData) reads Google Places search results to create map pins.
-  placeData is the object returned from search results containing information
-  about a single location.
-  */
-  function createMapMarker(placeData) {
+  // update the list
 
-    // The next lines save location data from the search result object to local variables
-    var lat = placeData.geometry.location.lat();  // latitude from the place service
-    var lon = placeData.geometry.location.lng();  // longitude from the place service
-    var name = placeData.formatted_address;   // name of the place from the place service
-    //var bounds = window.mapBounds;            // current boundaries of the map window
+  // AJAX Calls
+    // get data
+    // pass to correct callback to manipulate view
 
-    // marker is an object with additional data about the pin for a single location
-    var marker = new google.maps.Marker({
-      map: map,
-      position: placeData.geometry.location,
-      title: name
-    });
+};
 
-    // infoWindows are the little helper windows that open when you click
-    // or hover over a pin on a map. They usually contain more information
-    // about a location.
-    var infoWindow = new google.maps.InfoWindow({
-      content: "<h4>" + name + "</h4>"
-    });
+ko.applyBindings(new ViewModel());
 
-    // hmmmm, I wonder what this is about...
-    google.maps.event.addListener(marker, 'click', function() {
-      // close open infoWindow
-      if (openInfoWindow) { openInfoWindow.close(); }
 
-      // bind clicked marker infoWindow to global variable
-      openInfoWindow = infoWindow;
 
-      // add infoWindow
-      infoWindow.open(map, marker);
-    });
 
-    //marker.setMap(map);
-    // this is where the pin actually gets added to the map.
-    // bounds.extend() takes in a map location object
-    //bounds.extend(new google.maps.LatLng(lat, lon));
-    // fit the map to the new marker
-    //map.fitBounds(bounds);
-    // center the map
-    //map.setCenter(bounds.getCenter());
+// Here's my data model
+// var ViewModel = function(first, last) {
+//     this.firstName = ko.observable(first);
+//     this.lastName = ko.observable(last);
+ 
+//     this.fullName = ko.pureComputed(function() {
+//         // Knockout tracks dependencies automatically. It knows that fullName depends on firstName and lastName, because these get called when evaluating fullName.
+//         return this.firstName() + " " + this.lastName();
+//     }, this);
+// };
+ 
+// ko.applyBindings(new ViewModel("Planet", "Earth"));
+
+
+
+
+
+
+
+
+
+/* --------------------------- *\
+  #MAP STUFF
+\* --------------------------- */
+
+
+
+/*
+createMapMarker(placeData) reads Google Places search results to create map pins.
+placeData is the object returned from search results containing information
+about a single location.
+*/
+function createMapMarker(placeData) {
+
+  // The next lines save location data from the search result object to local variables
+  var lat = placeData.geometry.location.lat();  // latitude from the place service
+  var lon = placeData.geometry.location.lng();  // longitude from the place service
+  var address = placeData.formatted_address;   // name of the place from the place service
+  //var bounds = window.mapBounds;            // current boundaries of the map window
+  var name = placeData.name;
+
+  // marker is an object with additional data about the pin for a single location
+  var marker = new google.maps.Marker({
+    map: map,
+    position: placeData.geometry.location,
+    title: name
+  });
+
+  // infoWindows are the little helper windows that open when you click
+  // or hover over a pin on a map. They usually contain more information
+  // about a location.
+  var contentString = "";
+  contentString += "<h4>" + name + "</h4>";
+  contentString += "<h5>" + address + "</h5>";
+
+  var infoWindow = new google.maps.InfoWindow({
+    content: contentString
+  });
+
+  // hmmmm, I wonder what this is about...
+  google.maps.event.addListener(marker, 'click', function() {
+    // close open infoWindow
+    if (openInfoWindow) { openInfoWindow.close(); }
+
+    // bind clicked marker infoWindow to global variable
+    openInfoWindow = infoWindow;
+
+    // add infoWindow
+    infoWindow.open(map, marker);
+  });
+
+  //marker.setMap(map);
+  // this is where the pin actually gets added to the map.
+  // bounds.extend() takes in a map location object
+  //bounds.extend(new google.maps.LatLng(lat, lon));
+  // fit the map to the new marker
+  //map.fitBounds(bounds);
+  // center the map
+  //map.setCenter(bounds.getCenter());
+}
+
+
+/*
+callback(results, status) makes sure the search returned results for a location.
+If so, it creates a new map marker for that location.
+*/
+function callback(results, status) {
+  if (status == google.maps.places.PlacesServiceStatus.OK) {
+    createMapMarker(results[0]);
   }
+}
 
-  /*
-  callback(results, status) makes sure the search returned results for a location.
-  If so, it creates a new map marker for that location.
-  */
-  function callback(results, status) {
-    if (status == google.maps.places.PlacesServiceStatus.OK) {
-      createMapMarker(results[0]);
-    }
+
+// SOURCE: SOURCE: https://github.com/udacity/frontend-nanodegree-resume/
+//    blob/master/js/helper.js
+function pinPoster(locations) {
+
+  // creates a Google place search service object. PlacesService does the work of
+  // actually searching for location data.
+  var service = new google.maps.places.PlacesService(map);
+
+  // Iterates through the array of locations, creates a search object for each location
+  for (var place in locations) {
+
+    // the search request object
+    var request = {
+      query: locations[place]
+    };
+
+    // Actually searches the Google Maps API for location data and runs the callback
+    // function with the search results after each search.
+    service.textSearch(request, callback);
   }
+}
 
-
-  // SOURCE: SOURCE: https://github.com/udacity/frontend-nanodegree-resume/
-  //    blob/master/js/helper.js
-  function pinPoster(locations) {
-
-    // creates a Google place search service object. PlacesService does the work of
-    // actually searching for location data.
-    var service = new google.maps.places.PlacesService(map);
-
-    // Iterates through the array of locations, creates a search object for each location
-    for (var place in locations) {
-
-      // the search request object
-      var request = {
-        query: locations[place]
-      };
-
-      // Actually searches the Google Maps API for location data and runs the callback
-      // function with the search results after each search.
-      service.textSearch(request, callback);
-    }
-  }
-
-  // Sets the boundaries of the map based on pin locations
-  window.mapBounds = new google.maps.LatLngBounds();
+  // // Sets the boundaries of the map based on pin locations
+  // window.mapBounds = new google.maps.LatLngBounds();
 
   // locations is an array of location strings returned from locationFinder()
   // #TODO: Replace locationFinder with 
-  locations = ["New Haven, CT", "Yale University, CT"];
+ // locations = Model_Favorites;
 
   // pinPoster(locations) creates pins on the map for each location in
   // the locations array
-  pinPoster(locations);
-}
+ // pinPoster(locations);
 
-// On load initalize map
-google.maps.event.addDomListener(window, "load", initialize);
+
+
 
 
 
@@ -129,7 +243,7 @@ google.maps.event.addDomListener(window, "load", initialize);
 
 
 /**
- * SOURCE: https://github.com/udacity/frontend-nanodegree-resume/blob/master/js/helper.js
+ * 
  */
 
 /*

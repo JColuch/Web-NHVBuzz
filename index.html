@@ -8,26 +8,31 @@
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/styles.css">
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
-  <script src="js/map.js"></script>
 </head>
 <body>
+
   <header class="header">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-3">
-          <h1 class="logo">City Explorer</h1>
-        </div>
-        <div class="col-md-9">
-          <!-- input box -->
-          <input type="text" class="search-bar" data-bind="value: ">
-          <button type="submit">Search</button>
-        </div>
-      </div> <!-- End .row -->
-    </div> <!-- End .container -->
+
+    <h1 class="logo">NHV Explorer</h1>
+
+    <div class="search-bar">
+      <input type="text" class="search-input">
+      <button type="submit">Search</button>
+    </div>
   </header>
+
   <div class="side-bar">
-  </div>
+    <h2 class="side-bar-title">Favorite Places</h2>
+    <div class="place-listings" data-bind="foreach: placeMarkerList">
+      <div class="place-listing">
+        <h3 class="place-title" data-bind="text: name"></h3>
+        <p class="place-data" data-bind="text: location"></p>
+      </div>
+    </div>
+  </div> <!-- End .side-bar -->
+
   <div id="map-canvas"></div>
-  <script src="js/knockout.js"></script>
+  <script src="js/knockout-latest.js"></script>
+  <script src="js/map.js"></script>
 </body>
 </html>
