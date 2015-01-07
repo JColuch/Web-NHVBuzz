@@ -210,6 +210,10 @@ var elm = document.getElementsByClassName("slide-logo")[0];
 elm.addEventListener('click', function() {
   var bar = document.getElementsByClassName("side-bar")[0];
   bar.classList.toggle("side-bar-active");
+
+  var logo = document.getElementsByClassName("fa")[0];
+  logo.classList.toggle("fa-angle-double-right");
+
 })
 
 // Here's my data model
