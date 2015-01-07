@@ -1,3 +1,7 @@
+/*------------------------------------*\
+        #GENERAL-STYLES
+\*------------------------------------*/
+
 html,
 body,
 #map-canvas {
@@ -28,6 +32,11 @@ body,
 
 
 
+
+/*------------------------------------*\
+        #SEARCHBAR-STYLES
+\*------------------------------------*/
+
 .search-bar {
   display: inline-block;
   margin: 8px 0 0 89px;
@@ -41,14 +50,53 @@ body,
 
 
 
+
+/*------------------------------------*\
+        #SIDEBAR-STYLES
+\*------------------------------------*/
+
+.slide-logo {
+  position: absolute;
+  top: 0;
+  right: -20px;
+  height: 20px;
+  width:20px;
+  background: red;
+  z-index: 100;
+}
+
+.slide-logo:hover {
+  cursor: pointer;
+}
+
 .side-bar {
   position: fixed;
   top: 40px;
+  left: -250px;
   height: 100%;
   width: 250px;
   z-index: 100;
   background: rgba(255, 255, 255, .65);  
+  -moz-transition: all .5s;
+  -webkit-transition: all .5s;
+  transition: all .5s;
 }
+
+.side-bar-active {
+  -moz-transition: all .5s;
+  -webkit-transition: all .5s;
+  transition: all .5s;
+  left: 0;
+}
+
+
+/*
+ * Start state
+ * End state
+
+**/
+
+
 
 .side-bar-title {
   margin: 0;
