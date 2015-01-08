@@ -142,7 +142,8 @@ var ViewModel = function() {
     // var lon = placeData.geometry.location.lng();  // longitude from the place service
     var position = placeData.geometry.location;
     var bounds = mapBounds;
-
+    var address = placeData.formatted_address;
+    var rating = placeData.rating || "No rating available";
     // marker is an object with additional data about the pin
     // for a single location
     var marker = new google.maps.Marker({
@@ -155,9 +156,14 @@ var ViewModel = function() {
     // Keep track of markers
     markers.push(marker);
 
+    var content = '<div class="gm-title">' + name + "</h5>";
+    content += '<div>' + rating + '</div>';
+    content += '<div class="gm-addr">' + address + '</div>';
+    content += '<div class="gm-website"><a href="#">ynhh.org</a></div>';
+    
     // Attach infowidnow
     var infowindow = new google.maps.InfoWindow({
-      content: "<h5>" + name + "</h5>"
+      content: content
     });
 
     google.maps.event.addListener(marker, 'click', function() {
