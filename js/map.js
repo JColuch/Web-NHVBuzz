@@ -55,9 +55,12 @@ var ViewModel = function() {
   var map;
   var infoWindow;
 
+  var mapBounds;
+
   self.searchTerm = ko.observable();
   self.sideBarTitle = ko.observable();
   self.placeList = ko.observableArray([]);
+
 
   self.sideBarTitle("Places");
 
@@ -80,6 +83,8 @@ var ViewModel = function() {
 
     map = new google.maps.Map(document.getElementById("map-canvas"),
                               mapOptions);
+
+    mapBounds = new google.maps.LatLngBounds();
   }
 
   // On load initalize map
@@ -133,7 +138,10 @@ var ViewModel = function() {
 
   self.createMarker = function(placeData) {
     var name = placeData.name;
+    var lat = placeData.geometry.location.lat();  // latitude from the place service
+    var lon = placeData.geometry.location.lng();  // longitude from the place service
     var position = placeData.geometry.location;
+    var bounds = mapBounds;
 
     // marker is an object with additional data about the pin
     // for a single location
@@ -141,6 +149,7 @@ var ViewModel = function() {
       map: map,
       position: position,
       title: name
+      //animation: google.maps.Animation.DROP
     });
 
     // Keep track of markers
@@ -152,8 +161,17 @@ var ViewModel = function() {
     });
 
     google.maps.event.addListener(marker, 'click', function() {
+      map.panTo(marker.getPosition());
       infowindow.open(map, marker);
     });
+
+    // // this is where the pin actually gets added to the map.
+    // // bounds.extend() takes in a map location object
+    // bounds.extend(new google.maps.LatLng(lat, lon));
+    // // fit the map to the new marker
+    // map.fitBounds(bounds);
+    // // center the map
+    // map.setCenter(bounds.getCenter());
   }
 
   // SOURCE: https://developers.google.com/maps/documentation/
