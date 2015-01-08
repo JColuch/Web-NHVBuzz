@@ -18,15 +18,16 @@ body,
   padding: 0 10px;
   min-width: 970px;
   z-index: 100;
-  background: rgba(255, 255, 255, .97);
-  border-bottom: 1px solid #ddd;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.26);
 }
 
 .logo {
   display: inline-block;
+  width: 250px;
   margin: 3px 0;
   font-size: 28px;
-  color: #34AA78;
+  color: #333;
 }
 
 
@@ -41,6 +42,7 @@ body,
   display: inline-block;
   margin: 8px 0 0 89px;
   vertical-align: top;
+
 }
 .search-input {
   width: 450px;
@@ -83,8 +85,9 @@ body,
   left: 0;
   height: 100%;
   width: 250px;
-  z-index: 100;
-  background: rgba(255, 255, 255, .65);  
+  z-index: 90;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.26);
   -moz-transition: all .5s;
   -webkit-transition: all .5s;
   transition: all .5s;
@@ -92,6 +95,7 @@ body,
 
 .side-bar-active {
   left: -250px;
+
 }
 
 .info-bar-title,
@@ -99,7 +103,7 @@ body,
   margin: 0;
   padding: 10px 10px;
   font-size: 20px;
-  background: rgba(255, 255, 255, .7);
+  background: #fff;
   border-bottom: 1px solid #eee;
 }
 
@@ -115,7 +119,7 @@ body,
 
 .place-listing:hover {
   cursor: pointer;
-  background: rgba(255, 255, 255, .8);  
+  background: #f8f8f8; 
 }
 
 .place-title {
@@ -142,7 +146,7 @@ body,
   height: 100%;
   width: 400px;
   background: rgba(255, 255, 255, .65); 
-  z-index: 90;
+  z-index: 80;
   -moz-transition: all .5s;
   -webkit-transition: all .5s;
   transition: all .5s;
@@ -152,7 +156,9 @@ body,
   left: 250px;
 }
 
-
+.place-info {
+  padding: 20px;
+}
 
 
 
