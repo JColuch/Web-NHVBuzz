@@ -53,7 +53,7 @@ var ViewModel = function() {
   var markers = [];
 
   var map;
-  var infoWindow;
+  var openInfoWindow;
 
   var mapBounds;
 
@@ -138,8 +138,8 @@ var ViewModel = function() {
 
   self.createMarker = function(placeData) {
     var name = placeData.name;
-    var lat = placeData.geometry.location.lat();  // latitude from the place service
-    var lon = placeData.geometry.location.lng();  // longitude from the place service
+    // var lat = placeData.geometry.location.lat();  // latitude from the place service
+    // var lon = placeData.geometry.location.lng();  // longitude from the place service
     var position = placeData.geometry.location;
     var bounds = mapBounds;
 
@@ -161,17 +161,18 @@ var ViewModel = function() {
     });
 
     google.maps.event.addListener(marker, 'click', function() {
+      // Center map on marker clicked
       map.panTo(marker.getPosition());
-      infowindow.open(map, marker);
+
+      // Close current open window
+      if (openInfoWindow) {
+        openInfoWindow.close();
+      }
+
+      openInfoWindow = infowindow;
+      openInfoWindow.open(map, marker);
     });
 
-    // // this is where the pin actually gets added to the map.
-    // // bounds.extend() takes in a map location object
-    // bounds.extend(new google.maps.LatLng(lat, lon));
-    // // fit the map to the new marker
-    // map.fitBounds(bounds);
-    // // center the map
-    // map.setCenter(bounds.getCenter());
   }
 
   // SOURCE: https://developers.google.com/maps/documentation/
@@ -221,6 +222,12 @@ var ViewModel = function() {
 };
 
 ko.applyBindings(new ViewModel());
+
+
+
+
+
+
 
 
 var elm = document.getElementsByClassName("slide-logo")[0];
