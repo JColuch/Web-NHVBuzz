@@ -49,10 +49,8 @@ body,
 
 
 
-
-
 /*------------------------------------*\
-        #SIDEBAR-STYLES
+        #SLIDE-STYLES
 \*------------------------------------*/
 
 .slide-logo {
@@ -69,7 +67,15 @@ body,
   cursor: pointer;
 }
 
+.slide-inner {
+  right: 0;
+}
 
+
+
+/*------------------------------------*\
+        #SIDEBAR-STYLES
+\*------------------------------------*/
 
 .side-bar {
   position: fixed;
@@ -88,15 +94,7 @@ body,
   left: -250px;
 }
 
-
-/*
- * Start state
- * End state
-
-**/
-
-
-
+.info-bar-title,
 .side-bar-title {
   margin: 0;
   padding: 10px 10px;
@@ -128,6 +126,34 @@ body,
 .place-data {
   margin: 0;
 }
+
+
+
+
+
+/*------------------------------------*\
+        #INFOBAR-STYLES
+\*------------------------------------*/
+
+.info-bar {
+  position: fixed;
+  top: 40px;
+  left: -400px;
+  height: 100%;
+  width: 400px;
+  background: rgba(255, 255, 255, .65); 
+  z-index: 90;
+  -moz-transition: all .5s;
+  -webkit-transition: all .5s;
+  transition: all .5s;
+}
+
+.info-bar-active {
+  left: 250px;
+}
+
+
+
 
 
 

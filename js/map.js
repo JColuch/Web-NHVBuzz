@@ -206,16 +206,27 @@ ko.applyBindings(new ViewModel());
 
 
 var elm = document.getElementsByClassName("slide-logo")[0];
+var infoClose = document.getElementsByClassName("slide-logo")[1];
+var bar = document.getElementsByClassName("side-bar")[0];
+var listings = document.getElementsByClassName("place-listings")[0];
+var logo = document.getElementsByClassName("fa")[0];
+var info = document.getElementsByClassName("info-bar")[0];
 
 elm.addEventListener('click', function() {
-  var bar = document.getElementsByClassName("side-bar")[0];
   bar.classList.toggle("side-bar-active");
-
-  var logo = document.getElementsByClassName("fa")[0];
   logo.classList.toggle("fa-angle-double-right");
-
 })
 
+
+listings.addEventListener('click', function() {
+  elm.style.visibility = "hidden";
+  info.classList.add("info-bar-active");
+});
+
+infoClose.addEventListener('click', function() {
+  elm.style.visibility = "visible";
+  info.classList.remove("info-bar-active");
+});
 // Here's my data model
 // var ViewModel = function(first, last) {
 //     this.firstName = ko.observable(first);
