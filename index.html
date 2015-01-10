@@ -32,11 +32,26 @@
   </div>
   
   <div class="side-bar">
+
     <div class="place-listings" data-bind="foreach: placeList">
+
       <div class="place-listing">
-        <h3 class="place-title" data-bind="text: name"></h3>
-        <p class="place-data" data-bind="text: location"></p>
+
+        <div class="place-header">
+          <h3 class="place-title" data-bind="text: name"></h3>
+          <a class="place-link" href="#">more</a>
+        </div>
+
+        <div class="place-content">
+          
+          <p class="place-address" data-bind="text: type"></p>
+
+          <p class="place-data" data-bind="text: location"></p>
+
+        </div>
       </div>
+
+
     </div>
 
   </div> <!-- End .side-bar -->

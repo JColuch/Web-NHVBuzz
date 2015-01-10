@@ -35,9 +35,9 @@ var modelFavorites = [
 \* --------------------------- */
 var Placemarker = function(data) {
   this.name = data.name;
-  this.location = data.location;
+  this.location = data.formatted_address;
+  this.type = data.types[0];
 }
-
 
 
 
@@ -51,6 +51,10 @@ var ViewModel = function() {
 
   var self = this;
   var markers = [];
+  
+  var mapContainer = document.getElementById("map-canvas");
+  var $searchInput = $(".search-input")[0]; // autocomplete via Places library
+  
 
   var map;
   var openInfoWindow;
@@ -81,10 +85,17 @@ var ViewModel = function() {
       overviewMapControl: false
     };
 
-    map = new google.maps.Map(document.getElementById("map-canvas"),
-                              mapOptions);
+    map = new google.maps.Map(mapContainer, mapOptions);
 
     mapBounds = new google.maps.LatLngBounds();
+
+    var options = {
+      bounds: mapBounds,
+      types: ['establishment']
+    };
+
+    autocomplete = new google.maps.places.Autocomplete($searchInput, options);
+
   }
 
   // On load initalize map
@@ -220,11 +231,6 @@ var ViewModel = function() {
 
 
 
-  
-  // AJAX Calls
-    // get data
-    // pass to correct callback to manipulate view
-
 };
 
 ko.applyBindings(new ViewModel());
@@ -287,6 +293,16 @@ function success(data) {
   console.log("SUCCESS");
   console.log(data);
 }
+
+
+
+
+
+
+
+
+
+
 
 
 
