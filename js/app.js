@@ -258,30 +258,63 @@ infoClose.addEventListener('click', function() {
   elm.style.visibility = "visible";
   info.classList.remove("info-bar-active");
 });
-// Here's my data model
-// var ViewModel = function(first, last) {
-//     this.firstName = ko.observable(first);
-//     this.lastName = ko.observable(last);
- 
-//     this.fullName = ko.pureComputed(function() {
-//         // Knockout tracks dependencies automatically. It knows that fullName depends on firstName and lastName, because these get called when evaluating fullName.
-//         return this.firstName() + " " + this.lastName();
-//     }, this);
-// };
- 
-// ko.applyBindings(new ViewModel("Planet", "Earth"));
 
 
 
 
 
+function getYelpData() {
+
+  var API_HOST = 'api.yelp.com';
+  var DEFAULT_TERM = 'dinner';
+  var DEFAULT_LOCATION = 'San Francisco, CA';
+  var SEARCH_LIMIT = 3;
+  var SEARCH_PATH = '/v2/search/';
+  var BUSINESS_PATH = '/v2/business/';
+
+  // OAuth credential placeholders that must be filled in by users.
+  var CONSUMER_KEY = "g0pwrKvnWVonCJlcIJzBTA";
+  var CONSUMER_SECRET = "g9i6_z_dQa0jozItlVdbG1CZEio";
+  var TOKEN = "ytCQRnzOzdS9WaAiBCyst-C_t1h3WZaZ";
+  var TOKEN_SECRET = "6PwCm-2TPIPipEUcsY6nKZQTj9E";
+
+  var oauth = OAuth({
+      consumer: {
+          public: CONSUMER_KEY,
+          secret: CONSUMER_SECRET
+      },
+      signature_method: 'HMAC-SHA1'
+  });
 
 
 
+  var request_data = {
+      url: 'http://api.yelp.com/v2/search?term=cream+puffs&location=San+Francisco',
+      method: 'GET',
+      data: {
+          
+      }
+  };
 
-/* --------------------------- *\
-  #MAP STUFF
-\* --------------------------- */
+
+
+  var token = {
+      public: TOKEN,
+      secret: TOKEN_SECRET
+  };
+
+
+  $.ajax({
+      url: request_data.url,
+      type: request_data.method,
+      data: oauth.authorize(request_data, token)
+  }).done(function(data) {
+      //process your data here
+      console.log(data);
+  });
+
+}
+
 
 
 
