@@ -44,9 +44,21 @@
 
         <div class="place-content">
           
-          <p class="place-address" data-bind="text: type"></p>
+          <div class="place-address">
+            <span data-bind="text: location"></span>
+          </div>
 
-          <p class="place-data" data-bind="text: location"></p>
+          <div class="place-phone">
+            <i class="fa fa-phone"></i>
+            <span data-bind="text: phone"></span>
+          </div>
+
+          <div class="place-type">
+            <i class="fa fa-tag"></i>
+            <span data-bind="text: type"></span>
+          </div>
+
+
 
         </div>
       </div>

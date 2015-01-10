@@ -37,6 +37,7 @@ var Placemarker = function(data) {
   this.name = data.name;
   this.location = data.formatted_address;
   this.type = data.types[0];
+  this.phone = "(203) 592-3484";
 }
 
 
@@ -249,6 +250,7 @@ var listings = document.getElementsByClassName("place-listings")[0];
 var logo = document.getElementsByClassName("fa")[0];
 var info = document.getElementsByClassName("info-bar")[0];
 
+
 elm.addEventListener('click', function() {
   sbHeader.classList.toggle("sbh-active");
   bar.classList.toggle("side-bar-active");
@@ -256,7 +258,8 @@ elm.addEventListener('click', function() {
   info.classList.remove("info-bar-active");
 })
 
-
+console.log(moreButton);
+var moreButton = document.getElementsByClassName("place-link");
 listings.addEventListener('click', function() {
 
   info.classList.add("info-bar-active");
