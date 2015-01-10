@@ -235,27 +235,29 @@ ko.applyBindings(new ViewModel());
 
 
 
-
+var sbHeader = document.getElementsByClassName("side-bar-header")[0];
 var elm = document.getElementsByClassName("menu-toggle")[0];
-var infoClose = document.getElementsByClassName("menu-toggle")[1];
+var infoClose = document.getElementsByClassName("close-btn")[0];
 var bar = document.getElementsByClassName("side-bar")[0];
 var listings = document.getElementsByClassName("place-listings")[0];
 var logo = document.getElementsByClassName("fa")[0];
 var info = document.getElementsByClassName("info-bar")[0];
 
 elm.addEventListener('click', function() {
+  sbHeader.classList.toggle("sbh-active");
   bar.classList.toggle("side-bar-active");
   elm.classList.toggle("toggle");
+  info.classList.remove("info-bar-active");
 })
 
 
 listings.addEventListener('click', function() {
-  elm.style.visibility = "hidden";
+
   info.classList.add("info-bar-active");
 });
 
 infoClose.addEventListener('click', function() {
-  elm.style.visibility = "visible";
+
   info.classList.remove("info-bar-active");
 });
 
