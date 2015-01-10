@@ -69,7 +69,7 @@ body,
 .menu-toggle {
   position: absolute;
   top: 15px;
-  left: 200px;
+  left: 270px;
   height: 45px;
   width: 45px;
 /*  padding: 1px 10px;*/
@@ -88,7 +88,7 @@ body,
   -moz-transform: rotate(180deg);
   -webkit-transform: rotate(180deg);
   transform: rotate(180deg);
-  box-shadow: 0 0 2px 0 rgba(0,0,0,.2);
+  box-shadow: 0 -3px 5px 0 rgba(0,0,0,.2);
 }
 
 .fa-chevron-down {
@@ -110,7 +110,7 @@ body,
   top: -1000px;
   left: 0;
   height: 100%;
-  width: 250px;
+  width: 330px;
   z-index: 90;
   background: #fff;
   box-shadow: 0 2px 5px rgba(0,0,0,0.26);
