@@ -261,6 +261,28 @@ infoClose.addEventListener('click', function() {
 
 
 
+function getFoursquareData() {
+  var CLIENT_ID = "S5NWL3EHTULCWQBMZPATQXYRSJJY1ZIDZQVEDE5RQA2XU3L2";
+  var CLIENT_SECRET = "SHMKP1QG43ZKS55DPJO3P3PA5XAUYKZWKANFTT4A54FHVLQV";
+
+  var requestUrl = "https://api.foursquare.com/v2/venues/search?client_id=";
+  requestUrl += CLIENT_ID;
+  requestUrl += "&client_secret=" + CLIENT_SECRET;
+  requestUrl += "&v=20130815&ll=40.7,-74&query=sushi";
+
+
+  $.getJSON({
+    url: requestUrl,
+    dataType: "jsonp",
+    method: "GET",
+    success: success
+  })
+}
+
+function success(data) {
+  console.log("SUCCESS");
+  console.log(data);
+}
 
 
 function getYelpData() {
@@ -275,8 +297,8 @@ function getYelpData() {
   // OAuth credential placeholders that must be filled in by users.
   var CONSUMER_KEY = "g0pwrKvnWVonCJlcIJzBTA";
   var CONSUMER_SECRET = "g9i6_z_dQa0jozItlVdbG1CZEio";
-  var TOKEN = "ytCQRnzOzdS9WaAiBCyst-C_t1h3WZaZ";
-  var TOKEN_SECRET = "6PwCm-2TPIPipEUcsY6nKZQTj9E";
+  var TOKEN = "fEG19RwdCG_mxUOpkxxOAm38CjkdCN1Y";
+  var TOKEN_SECRET = "iLeCHWC0NDskCSAIDFsCWgQ-Af8";
 
   var oauth = OAuth({
       consumer: {
@@ -292,7 +314,7 @@ function getYelpData() {
       url: 'http://api.yelp.com/v2/search?term=cream+puffs&location=San+Francisco',
       method: 'GET',
       data: {
-          
+      
       }
   };
 
