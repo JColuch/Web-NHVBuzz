@@ -236,8 +236,8 @@ ko.applyBindings(new ViewModel());
 
 
 
-var elm = document.getElementsByClassName("slide-logo")[0];
-var infoClose = document.getElementsByClassName("slide-logo")[1];
+var elm = document.getElementsByClassName("menu-toggle")[0];
+var infoClose = document.getElementsByClassName("menu-toggle")[1];
 var bar = document.getElementsByClassName("side-bar")[0];
 var listings = document.getElementsByClassName("place-listings")[0];
 var logo = document.getElementsByClassName("fa")[0];
@@ -245,7 +245,7 @@ var info = document.getElementsByClassName("info-bar")[0];
 
 elm.addEventListener('click', function() {
   bar.classList.toggle("side-bar-active");
-  logo.classList.toggle("fa-angle-double-right");
+  elm.classList.toggle("toggle");
 })
 
 
