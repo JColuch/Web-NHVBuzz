@@ -79,9 +79,9 @@ body,
   z-index: 200;
   font-size: 20px;
   cursor: pointer;
-  -moz-transition: all .5s;
-  -webkit-transition: all .5s;
-  transition: all .5s;
+  -moz-transition: all .6s cubic-bezier(.53, .15, .53, .97);
+  -webkit-transition: all .6s cubic-bezier(.53, .15, .53, .97);
+  transition: all .6s cubic-bezier(.53, .15, .53, .97);
 }
 
 .toggle {
@@ -119,9 +119,9 @@ body,
   left: 0;
   height: 43px;
   width: 330px;
-    -moz-transition: all .5s;
-  -webkit-transition: all .5s;
-  transition: all .5s;
+  -moz-transition: all .6s cubic-bezier(.53, .15, .53, .97);
+  -webkit-transition: all .6s cubic-bezier(.53, .15, .53, .97);
+  transition: all .6s cubic-bezier(.53, .15, .53, .97);
 }
 
 .sbh-active {
@@ -137,9 +137,9 @@ body,
   width: 330px;
   background: #fff;
   box-shadow: 0 2px 5px rgba(0,0,0,0.26);
-  -moz-transition: all .5s;
-  -webkit-transition: all .5s;
-  transition: all .5s;
+  -moz-transition: all .6s cubic-bezier(.53, .15, .53, .97);
+  -webkit-transition: all .6s cubic-bezier(.53, .15, .53, .97);
+  transition: all .6s cubic-bezier(.53, .15, .53, .97);
 }
 
 .side-bar-active {
@@ -194,9 +194,9 @@ body,
   width: 330px;
   background: rgba(255, 255, 255, .95); 
   z-index: 110;
-  -moz-transition: all .5s;
-  -webkit-transition: all .5s;
-  transition: all 1s;
+  -moz-transition: all .6s cubic-bezier(.53, .15, .53, .97);
+  -webkit-transition: all .6s cubic-bezier(.53, .15, .53, .97);
+  transition: all .6s cubic-bezier(.53, .15, .53, .97);
 }
 
 .info-bar-active {
