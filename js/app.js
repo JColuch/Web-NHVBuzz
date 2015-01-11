@@ -35,9 +35,14 @@ var modelFavorites = [
 \* --------------------------- */
 var Placemarker = function(data) {
   this.name = data.name;
-  this.location = data.formatted_address;
+  this.address = data.formatted_address;
   this.type = data.types[0];
+  this.rating = "5.5";
+  this.url = "www.joelcolucci.com";
+  this.price = "EXPENSIVE";
   this.phone = "(203) 592-3484";
+  this.twitter = "@JColuch";
+  this.imgUrl = "http://www.northernlakesailboats.com/NewFiles/racing.jpg";
 }
 
 
@@ -49,14 +54,14 @@ var Placemarker = function(data) {
 
 var ViewModel = function() {
   // Data
-
   var self = this;
+
   var markers = [];
   
   var mapContainer = document.getElementById("map-canvas");
   var $searchInput = $(".search-input")[0]; // autocomplete via Places library
-  
-
+  var $infoPane = $(".info-bar");
+ 
   var map;
   var openInfoWindow;
 
@@ -66,6 +71,25 @@ var ViewModel = function() {
   self.sideBarTitle = ko.observable();
   self.placeList = ko.observableArray([]);
 
+  self.chosenPlaceId = ko.observable();
+
+  // This is the data we set and use to populate info pane
+  // Our observable arry contains all data we want
+  // How does the click pass the the UID to the function gotToPlace
+  self.chosenPlaceData = ko.observable();
+
+  // Behaviours    
+  self.goToPlace = function(place) { 
+    $infoPane.addClass("info-bar-active");
+    
+    self.chosenPlaceData(place);
+    //self.chosenFolderId(place);
+  
+  };
+
+  self.closeInfoBar = function() {
+    $infoPane.removeClass("info-bar-active");
+  }
 
   self.sideBarTitle("Places");
 
@@ -258,17 +282,17 @@ elm.addEventListener('click', function() {
   info.classList.remove("info-bar-active");
 })
 
-console.log(moreButton);
-var moreButton = document.getElementsByClassName("place-link");
-listings.addEventListener('click', function() {
+// console.log(moreButton);
+// var moreButton = document.getElementsByClassName("place-link");
+// listings.addEventListener('click', function() {
 
-  info.classList.add("info-bar-active");
-});
+//   info.classList.add("info-bar-active");
+// });
 
-infoClose.addEventListener('click', function() {
+// infoClose.addEventListener('click', function() {
 
-  info.classList.remove("info-bar-active");
-});
+//   info.classList.remove("info-bar-active");
+// });
 
 
 

@@ -35,17 +35,17 @@
 
     <div class="place-listings" data-bind="foreach: placeList">
 
-      <div class="place-listing">
+      <div class="place-listing" data-bind="click: $root.goToPlace">
 
         <div class="place-header">
           <h3 class="place-title" data-bind="text: name"></h3>
-          <a class="place-link" href="#">more</a>
+          <a class="place-link" href="#" >more</a>
         </div>
 
         <div class="place-content">
           
           <div class="place-address">
-            <span data-bind="text: location"></span>
+            <span data-bind="text: $data.address"></span>
           </div>
 
           <div class="place-phone">
@@ -58,8 +58,6 @@
             <span data-bind="text: type"></span>
           </div>
 
-
-
         </div>
       </div>
 
@@ -71,12 +69,29 @@
 
   <div class="info-bar">
     <h2 class="info-bar-title">More Information</h2>
-    <div class="place-info">
-      <h3 class="place-title">Super GYM Time</h3>
-      <p>Lorem ipsum</p>
+
+<!--
+Once I set chosenPlaceData the view updates
+I still need to work out how I get the correct data object on click
+
+
+-->
+    <div class="place-info" data-bind="with: chosenPlaceData">
+      <h3 class="place-title" data-bind="text: name">Super GYM Time</h3>
+      <p data-bind="text: address"></p>
+      <p data=bind="text: rating"></p>
+      <p data-bind="text: url"></p>
+      <p data-bind="text: price"></p>
+      <p data-bind="text: phone"></p>
+      <p data-bind="text: twitter"></p>
+      <img class="img-responsive" data-bind="attr: { src: imgUrl }" alt="Picture of place">
     </div>
+
+
+
+
     <div class="text-center close-btn">
-      <a href="#">close</a>
+      <a href="#" data-bind="click: closeInfoBar">close</a>
     </div>
   </div>
 
