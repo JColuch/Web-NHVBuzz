@@ -20,6 +20,10 @@ body,
   padding: 0;
 }
 
+body {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+
+}
 .header {
   position: fixed;
   top: 0;
@@ -35,7 +39,7 @@ body,
 .logo {
   display: inline-block;
   width: 250px;
-  margin: 8px 50px;
+  margin: 8px 50px 0 50px;
   font-size: 28px;
   color: #333;
 }
@@ -50,15 +54,27 @@ body,
 
 .search-bar {
   display: inline-block;
-  margin: 8px 0 0 20px;
+  margin: 8px 0 0 5px;
   vertical-align: top;
-
+  color: #777;
 }
 .search-input {
   width: 450px;
 /*  height: 30px;*/
+  border: none;
+  border-bottom: 2px solid #ccc;
+  text-decoration: none;
+  outline: none;
+  
 }
 
+.btn-search {
+  border: none;
+  outline: none;
+  background: #fff;
+  padding: 5px;
+  font-size: 16px;
+}
 
 
 
@@ -139,17 +155,49 @@ body,
 }
 
 .side-bar-active {
-  top: 97px;
+  top: 103px;
 }
 
 .info-bar-title,
 .side-bar-title {
   margin: 0;
-  padding: 12px 10px;
-  font-size: 20px;
+  padding: 15px 10px;
+  font-size: 22px;
   background: #fff;
   border-bottom: 1px solid #eee;
 }
+
+.info-bar-title {
+  font-size: 20px
+}
+
+
+
+/*------------------------------------*\
+        #INFOBAR-STYLES
+\*------------------------------------*/
+
+.info-bar {
+  position: fixed;
+  top: -1000px;
+  left: 0;
+  height: 100%;
+  width: 330px;
+  background: rgba(255, 255, 255, .95); 
+  z-index: 110;
+  -moz-transition: all .6s cubic-bezier(.53, .15, .53, .97);
+  -webkit-transition: all .6s cubic-bezier(.53, .15, .53, .97);
+  transition: all .6s cubic-bezier(.53, .15, .53, .97);
+}
+
+.info-bar-active {
+  top: 99px;
+}
+
+.place-info {
+  padding: 20px;
+}
+
 
 
 
@@ -215,30 +263,7 @@ body,
 }
 
 
-/*------------------------------------*\
-        #INFOBAR-STYLES
-\*------------------------------------*/
 
-.info-bar {
-  position: fixed;
-  top: -1000px;
-  left: 0;
-  height: 100%;
-  width: 330px;
-  background: rgba(255, 255, 255, .95); 
-  z-index: 110;
-  -moz-transition: all .6s cubic-bezier(.53, .15, .53, .97);
-  -webkit-transition: all .6s cubic-bezier(.53, .15, .53, .97);
-  transition: all .6s cubic-bezier(.53, .15, .53, .97);
-}
-
-.info-bar-active {
-  top: 93px;
-}
-
-.place-info {
-  padding: 20px;
-}
 
 
 
