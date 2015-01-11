@@ -23,7 +23,7 @@ body,
 .header {
   position: fixed;
   top: 0;
-  height: 40px;
+  height: 50px;
   width: 100%;
   padding: 0 10px;
   min-width: 970px;
@@ -35,7 +35,7 @@ body,
 .logo {
   display: inline-block;
   width: 250px;
-  margin: 3px 0;
+  margin: 8px 50px;
   font-size: 28px;
   color: #333;
 }
@@ -50,7 +50,7 @@ body,
 
 .search-bar {
   display: inline-block;
-  margin: 8px 0 0 89px;
+  margin: 8px 0 0 20px;
   vertical-align: top;
 
 }
@@ -68,8 +68,8 @@ body,
 
 .menu-toggle {
   position: absolute;
-  top: 15px;
-  left: 270px;
+  top: 25px;
+  left: 10px;
   height: 45px;
   width: 45px;
 /*  padding: 1px 10px;*/
@@ -89,6 +89,7 @@ body,
   -webkit-transform: rotate(180deg);
   transform: rotate(180deg);
   box-shadow: 0 -3px 5px 0 rgba(0,0,0,.2);
+  left: 270px;
 }
 
 .fa-chevron-down {
@@ -108,11 +109,6 @@ body,
 \*------------------------------------*/
 
 .side-bar-header {
-  /*
-  below header
-  above listing
-  above info pane
-  */
   z-index: 120;
   position: fixed;
   top: -1000px;
@@ -125,7 +121,7 @@ body,
 }
 
 .sbh-active {
-  top: 40px;
+  top: 50px;
 }
 
 .side-bar {
@@ -143,13 +139,13 @@ body,
 }
 
 .side-bar-active {
-  top: 83px;
+  top: 97px;
 }
 
 .info-bar-title,
 .side-bar-title {
   margin: 0;
-  padding: 10px 10px;
+  padding: 12px 10px;
   font-size: 20px;
   background: #fff;
   border-bottom: 1px solid #eee;
@@ -171,12 +167,15 @@ body,
 }
 
 .place-listing {
-  padding: 10px 15px 5px 10px;
+  padding: 10px 15px 10px 10px;
+  background: #fff;
+  border-radius: 2px;
+  border-bottom: 1px solid #eee;
 }
 
 .place-listing:hover {
   cursor: pointer;
-  background: #f8f8f8; 
+/*  background: #f8f8f8; */
 }
 
 .place-title,
@@ -234,7 +233,7 @@ body,
 }
 
 .info-bar-active {
-  top: 83px;
+  top: 93px;
 }
 
 .place-info {
