@@ -80,8 +80,7 @@ I still need to work out how I get the correct data object on click
       <h3 class="place-title" data-bind="text: name">Super GYM Time</h3>
       <p data-bind="text: address"></p>
       <p data=bind="text: rating"></p>
-      <p data-bind="text: url"></p>
-      <p data-bind="text: price"></p>
+      <a data-bind="text: url, attr: { href: url }" target="_blank"></a>
       <p data-bind="text: phone"></p>
       <p data-bind="text: twitter"></p>
       <img class="img-responsive" data-bind="attr: { src: imgUrl }" alt="Picture of place">

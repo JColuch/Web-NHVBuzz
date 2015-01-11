@@ -151,6 +151,8 @@ var ViewModel = function() {
     };
 
     service.textSearch(request, self.callback);
+
+    self.getFoursquareData(searchTerm);
   }
 
   // Source: https://developers.google.com/maps/documentation/javascript/
@@ -164,12 +166,100 @@ var ViewModel = function() {
         self.createMarker(results[i]);
       }
 
-      loadSideBar(results);
+      //loadSideBar(results);
     }
     else {
       console.log("ERROR");
     }
   }
+
+  function loadSideBar(data) {
+    // Empty side bar
+    self.placeList.removeAll();
+
+    self.placeList(data);
+  }
+
+
+
+  self.getFoursquareData = function(query) {
+    var CLIENT_ID = "S5NWL3EHTULCWQBMZPATQXYRSJJY1ZIDZQVEDE5RQA2XU3L2";
+    var CLIENT_SECRET = "SHMKP1QG43ZKS55DPJO3P3PA5XAUYKZWKANFTT4A54FHVLQV";
+
+    var query = encodeURIComponent(query);
+
+    var requestUrl = "https://api.foursquare.com/v2/venues/explore";
+    requestUrl += "?client_id=" + CLIENT_ID;
+    requestUrl += "&client_secret=" + CLIENT_SECRET;
+    requestUrl += "&v=20130815"; // version
+    requestUrl += "&ll=41.31,-72.924"; // latitude, longitude
+    requestUrl += "&query=" + query;
+
+
+    $.ajax({
+      url: requestUrl,
+      dataType: "jsonp",
+      method: "GET",
+      success: self.foursquareCallback
+    })
+  }
+
+
+  self.foursquareCallback = function(response) {
+    var statusCode = response.meta.code;
+    if (statusCode !== 200) {
+      console.log("FOURSQUARE ERROR");
+      return;
+    }
+
+    var results = response.response.groups[0].items;
+    var data = self.parseFoursquareData(results);
+
+    loadSideBar(data);
+  }
+
+
+  self.parseFoursquareData = function(results) {
+    var foursquareData = [];
+    var place;
+
+    for (var i = 0, len = results.length; i < len; i++) {
+      var venue = results[i].venue;
+      var tips = results[i].tips ? results[i].tips[0] : "";
+
+      place = {
+        name: venue.name,
+        type: venue.categories[0].name,
+        address: getFullAddress(venue.location) || "Not available",
+        phone: venue.contact.formattedPhone || "Not available",
+        twitter: venue.contact.twitter || "Not available",
+        rating: venue.rating || "Not available",
+        url: venue.url || "Not available",
+        imgUrl: tips.photourl || ""
+      }
+      
+      foursquareData.push(place);
+    }
+
+    return foursquareData;
+  }
+
+  function getFullAddress(location) {
+    var fullAddress = "";
+
+    fullAddress += location.address ? location.address : "";
+    fullAddress += location.city ? ", " + location.city : "";
+    fullAddress += location.state ? ", " + location.state : "";
+    fullAddress += location.postalCode ? location.postalCode : "";
+
+    return fullAddress;
+  }
+
+
+
+
+
+
 
 
   self.createMarker = function(placeData) {
@@ -242,20 +332,6 @@ var ViewModel = function() {
     markers = [];
   }
 
-
-
-  function loadSideBar(data) {
-    // Empty side bar
-    self.placeList.removeAll();
-
-    // Load placeMarkers
-    data.forEach(function(place) {
-      self.placeList.push(new Placemarker(place));
-    });
-  }
-
-
-
 };
 
 ko.applyBindings(new ViewModel());
@@ -296,25 +372,7 @@ elm.addEventListener('click', function() {
 
 
 
-function getFoursquareData() {
-  var CLIENT_ID = "S5NWL3EHTULCWQBMZPATQXYRSJJY1ZIDZQVEDE5RQA2XU3L2";
-  var CLIENT_SECRET = "SHMKP1QG43ZKS55DPJO3P3PA5XAUYKZWKANFTT4A54FHVLQV";
 
-  var requestUrl = "https://api.foursquare.com/v2/venues/explore";
-  requestUrl += "?client_id=" + CLIENT_ID;
-  requestUrl += "&client_secret=" + CLIENT_SECRET;
-  requestUrl += "&v=20130815"; // version
-  requestUrl += "&ll=41.31,-72.924"; // latitude, longitude
-  requestUrl += "&query=sushi";
-
-
-  $.ajax({
-    url: requestUrl,
-    dataType: "jsonp",
-    method: "GET",
-    success: success
-  })
-}
 
 function success(data) {
   console.log("SUCCESS");

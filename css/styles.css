@@ -232,7 +232,9 @@ body {
 }
 
 .place-title,
-.place-address {
+.place-address,
+.place-phone,
+.place-type {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;  
@@ -259,7 +261,7 @@ body {
 .place-phone,
 .place-type {
   display: inline-block;
-  width: 40%;
+  width: 45%;
 }
 
 
