@@ -246,8 +246,10 @@ body {
 }
 
 .place-link {
-  text-decoration: underline;
+  padding: 0 5px 5px;
+  font-size: 20px;
   float: right;
+  z-index: 200;
 }
 
 .place-address {
