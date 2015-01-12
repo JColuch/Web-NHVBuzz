@@ -35,13 +35,25 @@
 
     <div class="place-listings" data-bind="foreach: placeList">
 
-      <div class="place-listing" data-bind="click: $root.goToPlace">
+      <div class="place-listing" data-bind="">
 
         <div class="place-header">
           <h3 class="place-title" data-bind="text: name"></h3>
-          <div class="place-link" data-bind="click: $root.setInfoWindow, clickBubble: false">
-            <i class="fa fa-map-marker"></i>
+
+          <div class="place-icons text-center">
+
+            <div class="place-link" data-bind="click: $root.goToPlace">
+              <i class="fa fa-info-circle"></i>
+            </div>
+
+
+            <div class="place-link" data-bind="click: $root.setInfoWindow, clickBubble: false">
+              <i class="fa fa-map-marker"></i>
+            </div>
+
+
           </div>
+
         </div>
 
         <div class="place-content">

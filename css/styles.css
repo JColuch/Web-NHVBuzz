@@ -226,8 +226,7 @@ body {
 /*  background: #f8f8f8; */
 }
 
-.place-title,
-.place-link {
+.place-title {
   display: inline-block;
 }
 
@@ -239,18 +238,24 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;  
 }
+
 .place-title {
   margin: 0;
   width: 80%;
   font-size: 18px;
 }
 
-.place-link {
-  padding: 0 5px 5px;
-  font-size: 20px;
+
+.place-icons {
   float: right;
-  z-index: 200;
+  margin-top: -2px;
 }
+
+.place-link {
+  padding: 0 0 3px;
+  font-size: 20px;
+}
+
 
 .place-address {
   font-size: 12px;

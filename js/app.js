@@ -62,16 +62,17 @@ var ViewModel = function() {
   var mapContainer = document.getElementById("map-canvas");
   
   var map;
-  var infoWindow;
   var mapBounds;
+  var infoWindow;
+  
   var markers = [];
 
   self.searchTerm = ko.observable();
   self.sideBarTitle = ko.observable();
   self.placeList = ko.observableArray([]);
 
-  self.chosenPlaceId = ko.observable();
 
+  self.sideBarTitle("Places");
   // This is the data we set and use to populate info pane
   // Our observable arry contains all data we want
   // How does the click pass the the UID to the function gotToPlace
@@ -82,16 +83,13 @@ var ViewModel = function() {
     $infoPane.addClass("info-bar-active");
     
     self.chosenPlaceData(place);
-
-    //setInfoWindow(place);
-    //self.chosenFolderId(place);
   };
 
   self.closeInfoBar = function() {
     $infoPane.removeClass("info-bar-active");
   }
 
-  self.sideBarTitle("Places");
+ 
 
   // Operations
 
@@ -143,7 +141,6 @@ var ViewModel = function() {
 
 
   self.setInfoWindow = function(data) {
-    console.log(data);
     var content = "";
     content += '<div class="gm-title">' + data.name + "</h5>";
     content += '<div>' + data.rating + '</div>';
@@ -179,7 +176,6 @@ var ViewModel = function() {
 
     // Keep track of markers
     markers.push(marker);
-
   }
 
   // SOURCE: https://developers.google.com/maps/documentation/
@@ -206,10 +202,6 @@ var ViewModel = function() {
     clearMarkers();
     markers = [];
   }
-
-
-
-
 
   // On load initalize map
   google.maps.event.addDomListener(window, "load", initializeMap);
@@ -243,6 +235,7 @@ var ViewModel = function() {
     // Clear input box
     self.searchTerm("");
     deleteMarkers();
+    infoWindow.close();
 
     // Update Side Bar Title
     var title = searchTerm.charAt(0).toUpperCase() + searchTerm.slice(1);
@@ -318,7 +311,7 @@ var ViewModel = function() {
         position: getPositionCoords(venue.location)
       }
 
-      // 
+
       self.createMarker(place);
 
       foursquareData.push(place);
@@ -327,12 +320,15 @@ var ViewModel = function() {
     return foursquareData;
   }
 
+  // HELPER FUNCTIONS
+
   function getPositionCoords(location) {
     return {
       lat: location.lat,
       lng: location.lng
     }
   }
+
   function getFullAddress(location) {
     var fullAddress = "";
 
@@ -343,10 +339,6 @@ var ViewModel = function() {
 
     return fullAddress;
   }
-
-
-
-
 
 };
 
