@@ -70,45 +70,25 @@ var ViewModel = function() {
   self.searchTerm = ko.observable();
   self.sideBarTitle = ko.observable();
   self.placeList = ko.observableArray([]);
-
-
-  self.sideBarTitle("Places");
-  // This is the data we set and use to populate info pane
-  // Our observable arry contains all data we want
-  // How does the click pass the the UID to the function gotToPlace
   self.chosenPlaceData = ko.observable();
 
-  // Behaviours    
+  self.sideBarTitle("Places");
+
+
+  // Behaviors    
   self.goToPlace = function(place) { 
     $infoPane.addClass("info-bar-active");
     
     self.chosenPlaceData(place);
   };
 
+
   self.closeInfoBar = function() {
     $infoPane.removeClass("info-bar-active");
   }
 
- 
 
   // Operations
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   function initializeMap() {
 
@@ -139,13 +119,13 @@ var ViewModel = function() {
   } // End function initializeMap()
 
 
-
   self.setInfoWindow = function(data) {
     var content = "";
-    content += '<div class="gm-title">' + data.name + "</h5>";
-    content += '<div>' + data.rating + '</div>';
-    content += '<div class="gm-addr">' + data.address + '</div>';
-    content += '<div class="gm-website"><a href="#">ynhh.org</a></div>';
+    content += '<h4 class="iw-title"><a href="' + data.url + '">';
+    content += data.name + "</a></h4>";
+    content += '<p class="iw-address">' + data.address + '</p>';
+    content += '<p class="iw-para"><i class="fa fa-phone iw-icon"></i>' + data.phone + '</li>';
+    content += '<p class="iw-para"><i class="fa fa-tag iw-icon"></i>' + data.type + '</li>';
 
     infoWindow.setPosition(data.position);
     infoWindow.setContent(content);
@@ -153,7 +133,6 @@ var ViewModel = function() {
 
     map.panTo(data.position);
   }
-
 
 
   self.createMarker = function(data) {
@@ -172,6 +151,10 @@ var ViewModel = function() {
       position: position,
       title: name
       //animation: google.maps.Animation.DROP
+    });
+
+    google.maps.event.addListener(marker, 'click', function() {
+      self.setInfoWindow(data);
     });
 
     // Keep track of markers
@@ -203,26 +186,9 @@ var ViewModel = function() {
     markers = [];
   }
 
+
   // On load initalize map
   google.maps.event.addDomListener(window, "load", initializeMap);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   self.getPlaces =function() {
@@ -263,9 +229,8 @@ var ViewModel = function() {
     requestUrl += "?client_id=" + CLIENT_ID;
     requestUrl += "&client_secret=" + CLIENT_SECRET;
     requestUrl += "&v=20130815"; // version
-    requestUrl += "&ll=41.31,-72.924"; // latitude, longitude
+    requestUrl += "&ll=41.31,-72.924"; // lat, lng
     requestUrl += "&query=" + query;
-
 
     $.ajax({
       url: requestUrl,
@@ -350,6 +315,17 @@ ko.applyBindings(new ViewModel());
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 var sbHeader = document.getElementsByClassName("side-bar-header")[0];
 var elm = document.getElementsByClassName("menu-toggle")[0];
 var infoClose = document.getElementsByClassName("close-btn")[0];
@@ -378,14 +354,6 @@ elm.addEventListener('click', function() {
 //   info.classList.remove("info-bar-active");
 // });
 
-
-
-
-
-function success(data) {
-  console.log("SUCCESS");
-  console.log(data);
-}
 
 
 
