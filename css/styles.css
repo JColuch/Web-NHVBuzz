@@ -138,8 +138,9 @@ body {
 
 .close-btn {
   position: absolute;
-  top: 10px;
+  top: 17px;
   right: 10px;
+  text-decoration: underline;
 }
 
 
@@ -207,7 +208,7 @@ body {
   left: 0;
   height: 100%;
   width: 330px;
-  background: rgba(255, 255, 255, .95); 
+  background: #fff; 
   z-index: 110;
   -moz-transition: all .6s cubic-bezier(.53, .15, .53, .97);
   -webkit-transition: all .6s cubic-bezier(.53, .15, .53, .97);
@@ -218,13 +219,35 @@ body {
   top: 99px;
 }
 
-.place-info {
+.ib-info {
   padding: 20px;
 }
 
+.ib-title {
+  margin: 0 0 5px;
+  font-size: 22px;
+}
 
+.ib-phone,
+.ib-type,
+.ib-web,
+.ib-twitter {
+  display: block;
+  padding: 5px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; 
+}
 
+.ib-icon {
+  margin-right: 10px;
+}
 
+.ib-img {
+  margin-top: 10px;
+  padding: 5px;
+  border-radius: 2px
+}
 
 
 /*------------------------------------*\

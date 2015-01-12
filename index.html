@@ -85,14 +85,37 @@
   <div class="info-bar">
     <h2 class="info-bar-title">More Information</h2>
 
-    <div class="place-info" data-bind="with: chosenPlaceData">
-      <h3 class="place-title" data-bind="text: name">Super GYM Time</h3>
-      <p data-bind="text: address"></p>
-      <p data=bind="text: rating"></p>
-      <a data-bind="text: websiteName, attr: { href: url }" target="_blank"></a>
-      <p data-bind="text: phone"></p>
-      <p data-bind="text: twitter"></p>
-      <img class="img-responsive" data-bind="attr: { src: imgUrl }" alt="Picture of place">
+    <div class="ib-info" data-bind="with: chosenPlaceData">
+      <h3 class="ib-title" data-bind="text: name">Super GYM Time</h3>
+
+      <div class="place-address">
+        <span data-bind="text: address"></span>
+      </div>
+
+      <div class="ib-phone">
+        <i class="fa fa-phone ib-icon"></i>
+        <span data-bind="text: phone"></span>
+      </div>
+      
+      <div class="ib-type">
+        <i class="fa fa-tag ib-icon"></i>
+        <span data-bind="text: type"></span>
+      </div>
+
+      <div class="ib-twitter ib-icon">
+        <i class="fa fa-twitter ib-icon"></i>
+        <a data-bind="text: twitter, attr: { href: twitter }"></a>
+      </div>
+
+      <div class="ib-web">
+        <i class="fa fa-globe ib-icon"></i>
+        <a data-bind="text: websiteName, attr: { href: url }" target="_blank"></a>
+      </div>
+<!-- 
+      <div class="ib-img">
+        <img class="img-responsive ib-img" data-bind="attr: { src: imgUrl }" alt="Not available">
+      </div> -->
+
     </div>
 
 

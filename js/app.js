@@ -31,24 +31,6 @@ var modelFavorites = [
 
 
 /* --------------------------- *\
-  #CLASSES
-\* --------------------------- */
-var Placemarker = function(data) {
-  this.name = data.name;
-  this.address = data.formatted_address;
-  this.type = data.types[0];
-  this.rating = "5.5";
-  this.url = "www.joelcolucci.com";
-  this.price = "EXPENSIVE";
-  this.phone = "(203) 592-3484";
-  this.twitter = "@JColuch";
-  this.imgUrl = "http://www.northernlakesailboats.com/NewFiles/racing.jpg";
-}
-
-
-
-
-/* --------------------------- *\
   #VIEWMODEL
 \* --------------------------- */
 
@@ -173,11 +155,6 @@ var ViewModel = function() {
   // Removes the markers from the map, but keeps them in the array.
   function clearMarkers() {
     setAllMap(null);
-  }
-  
-  // Shows any markers currently in the array.
-  function showMarkers() {
-    setAllMap(map);
   }
 
   // Deletes all markers in the array by removing references to them.
