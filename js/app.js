@@ -102,6 +102,7 @@ var ViewModel = function() {
     var CLIENT_ID = "S5NWL3EHTULCWQBMZPATQXYRSJJY1ZIDZQVEDE5RQA2XU3L2";
     var CLIENT_SECRET = "SHMKP1QG43ZKS55DPJO3P3PA5XAUYKZWKANFTT4A54FHVLQV";
 
+    console.log(query);
     var query = encodeURIComponent(query);
     console.log(query);
     var location = parseCurrentLocation();
@@ -111,8 +112,11 @@ var ViewModel = function() {
     requestUrl += "?client_id=" + CLIENT_ID;
     requestUrl += "&client_secret=" + CLIENT_SECRET;
     requestUrl += "&v=20130815"; // version
+    requestUrl += "&intent=global";
     requestUrl += "&ll=" + location; // lat, lng
+    
     requestUrl += "&query=" + query;
+    requestUrl += "&limit=15";
 
     $.ajax({
       url: requestUrl,
@@ -221,8 +225,20 @@ var ViewModel = function() {
 
     // Set ViewModel scoped variables
     map = new google.maps.Map(mapContainer, mapOptions);
-    mapBounds = new google.maps.LatLngBounds();
+
     infoWindow = new google.maps.InfoWindow();
+
+    // Source: https://developers.google.com/maps/documentation
+    // /javascriptplaces-autocomplete
+    var geolocation = new google.maps.LatLng(
+          currentLocation.lat, currentLocation.lng);
+
+    var circle = new google.maps.Circle({
+      center: geolocation,
+      radius: 1000
+    });
+    
+    var mapBounds = circle.getBounds();
 
     var options = {
       bounds: mapBounds,
