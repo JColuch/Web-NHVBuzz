@@ -1,58 +1,30 @@
 /* --------------------------- *\
-  #MODELS
-\* --------------------------- */
-
-var modelFavorites = [
-  {
-    name: "Claire's Cornocopia",
-    location: "New Haven, CT"
-  },
-  {
-    name: "Starbucks Coffee",
-    location: "New Haven, CT"
-  },
-  {
-    name: "Yale University",
-    location: "New Haven, CT"
-  },
-  {
-    name: "Yale-New Haven Hospital",
-    location: "New Haven, CT"
-  },
-  {
-    name: "Blue State Coffee",
-    location: "New Haven, CT"
-  }
-];
-
-
-
-
-
-
-/* --------------------------- *\
   #VIEWMODEL
 \* --------------------------- */
 
 var ViewModel = function() {
-  // Data
   var self = this;
 
+  // Cache DOM elms
   var $searchInput = $(".search-input")[0]; // autocomplete via Places library
+  var mapContainer = document.getElementById("map-canvas");
 
+  // Cache DOM elms needed for CSS animations
   var $sidebarBtn = $(".menu-toggle");
   var $sidebar = $(".side-bar");
   var $sidebarHeader = $(".side-bar-header");
-
   var $infoPane = $(".info-bar");
   
-  var mapContainer = document.getElementById("map-canvas");
+
   
   var map;
   var mapBounds;
   var infoWindow;
   
   var markers = [];
+
+  // Default to New Haven, CT
+  var currentLocation = { lat: 41.3100, lng: -72.924 };
 
   self.searchTerm = ko.observable();
   self.sideBarTitle = ko.observable();
@@ -84,8 +56,10 @@ var ViewModel = function() {
     content += '<h4 class="iw-title"><a href="' + data.url + '">';
     content += data.name + "</a></h4>";
     content += '<p class="iw-address">' + data.address + '</p>';
-    content += '<p class="iw-para"><i class="fa fa-phone iw-icon"></i>' + data.phone + '</li>';
-    content += '<p class="iw-para"><i class="fa fa-tag iw-icon"></i>' + data.type + '</li>';
+    content += '<p class="iw-para"><i class="fa fa-phone iw-icon"></i>';
+    content += data.phone + '</li>';
+    content += '<p class="iw-para"><i class="fa fa-tag iw-icon"></i>';
+    content += data.type + '</li>';
 
     infoWindow.setPosition(data.position);
     infoWindow.setContent(content);
@@ -129,12 +103,15 @@ var ViewModel = function() {
     var CLIENT_SECRET = "SHMKP1QG43ZKS55DPJO3P3PA5XAUYKZWKANFTT4A54FHVLQV";
 
     var query = encodeURIComponent(query);
+    console.log(query);
+    var location = parseCurrentLocation();
+    console.log(location);
 
     var requestUrl = "https://api.foursquare.com/v2/venues/explore";
     requestUrl += "?client_id=" + CLIENT_ID;
     requestUrl += "&client_secret=" + CLIENT_SECRET;
     requestUrl += "&v=20130815"; // version
-    requestUrl += "&ll=41.31,-72.924"; // lat, lng
+    requestUrl += "&ll=" + location; // lat, lng
     requestUrl += "&query=" + query;
 
     $.ajax({
@@ -155,8 +132,11 @@ var ViewModel = function() {
 
     var results = response.response.groups[0].items;
     var data = self.parseFoursquareData(results);
-
     loadSideBar(data);
+
+    // Pan to location of first response item
+    var coords = data[0].position;
+    setCurrentLocation(coords);
   }
 
 
@@ -190,7 +170,23 @@ var ViewModel = function() {
     return foursquareData;
   }
 
-  // HELPER FUNCTIONS
+  //** HELPER FUNCTIONS **//
+
+  /**
+   *  
+   */
+  function setCurrentLocation(coords) {
+    currentLocation = coords;
+
+    map.panTo(coords);
+  }
+
+  function parseCurrentLocation() {
+    var lng = currentLocation.lng;
+    var lat = currentLocation.lat;
+
+    return lat + ',' + lng;
+  }
 
   function getPositionCoords(location) {
     return {
@@ -205,18 +201,15 @@ var ViewModel = function() {
     fullAddress += location.address ? location.address : "";
     fullAddress += location.city ? ", " + location.city : "";
     fullAddress += location.state ? ", " + location.state : "";
-    fullAddress += location.postalCode ? location.postalCode : "";
 
     return fullAddress;
   }
 
 
   function initializeMap() {
-
-    var newHaven = { lat: 41.3100, lng: -72.924 };
-
+    // Set map options
     var mapOptions = {
-      center: newHaven,
+      center: currentLocation,
       zoom: 14,
       panControl: false,
       zoomControl: false,
@@ -237,13 +230,13 @@ var ViewModel = function() {
     };
 
     autocomplete = new google.maps.places.Autocomplete($searchInput, options);
-  } // End function initializeMap()
+  }
 
   function createMarker(data) {
     var name = data.name;
 
     var position = data.position;
-
+   
     var address = data.address;
 
     var rating = data.rating || "No rating available";
@@ -293,3 +286,31 @@ var ViewModel = function() {
 ko.applyBindings(new ViewModel());
 
 
+
+
+/* --------------------------- *\
+  #MODELS
+\* --------------------------- */
+
+var modelFavorites = [
+  {
+    name: "Claire's Cornocopia",
+    location: "New Haven, CT"
+  },
+  {
+    name: "Starbucks Coffee",
+    location: "New Haven, CT"
+  },
+  {
+    name: "Yale University",
+    location: "New Haven, CT"
+  },
+  {
+    name: "Yale-New Haven Hospital",
+    location: "New Haven, CT"
+  },
+  {
+    name: "Blue State Coffee",
+    location: "New Haven, CT"
+  }
+];

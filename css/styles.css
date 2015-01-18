@@ -84,6 +84,11 @@ body {
         #INFOWINDOW-STYLES
 \*------------------------------------*/
 
+/* Add to Google default style */
+.gm-style-iw {
+  min-width: 200px;
+}
+
 .iw-title {
   margin-bottom: 5px
 }
