@@ -14,7 +14,7 @@
 
   <header class="header">
 
-    <h1 class="logo">City Buzz</h1>
+    <h1 class="logo">NHV Buzz</h1>
 
     <div class="search-bar">
       <form data-bind="submit: getPlaces">
@@ -22,19 +22,19 @@
         <button type="submit" class="btn-search"><i class="fa fa-search"></i></button>
       </form>
     </div>
-    <div class="text-center menu-toggle" data-bind="click: toggleSidebar">
+    <div class="text-center menu-toggle toggle" data-bind="click: toggleSidebar">
       <i class="fa fa-chevron-down"></i>
     </div>
   </header>
 
 
 
-  <div class="side-bar-header">
+  <div class="side-bar-header sbh-active">
     <h2 class="side-bar-title" data-bind="text: sideBarTitle">Favorite Places</h2>
   </div>
   
 
-  <div class="side-bar">
+  <div class="side-bar side-bar-active">
 
     <div class="place-listings" data-bind="foreach: placeList">
 

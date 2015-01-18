@@ -15,11 +15,11 @@ var ViewModel = function() {
   var $sidebarHeader = $(".side-bar-header");
   var $infoPane = $(".info-bar");
   
-
-  
+  // Variables scoped to ViewModel
   var map;
   var mapBounds;
-  var infoWindow;
+
+  var infoWindow = new google.maps.InfoWindow();
   
   var markers = [];
 
@@ -33,7 +33,7 @@ var ViewModel = function() {
 
   self.sideBarTitle("Places");
 
-  // Behaviors    
+  // View Triggered Behaviors    
   self.goToPlace = function(place) { 
     $infoPane.addClass("info-bar-active");
     
@@ -102,11 +102,8 @@ var ViewModel = function() {
     var CLIENT_ID = "S5NWL3EHTULCWQBMZPATQXYRSJJY1ZIDZQVEDE5RQA2XU3L2";
     var CLIENT_SECRET = "SHMKP1QG43ZKS55DPJO3P3PA5XAUYKZWKANFTT4A54FHVLQV";
 
-    console.log(query);
     var query = encodeURIComponent(query);
-    console.log(query);
     var location = parseCurrentLocation();
-    console.log(location);
 
     var requestUrl = "https://api.foursquare.com/v2/venues/explore";
     requestUrl += "?client_id=" + CLIENT_ID;
@@ -139,8 +136,8 @@ var ViewModel = function() {
     loadSideBar(data);
 
     // Pan to location of first response item
-    var coords = data[0].position;
-    setCurrentLocation(coords);
+    //var coords = data[0].position;
+    //setCurrentLocation(coords);
   }
 
 
@@ -226,8 +223,6 @@ var ViewModel = function() {
     // Set ViewModel scoped variables
     map = new google.maps.Map(mapContainer, mapOptions);
 
-    infoWindow = new google.maps.InfoWindow();
-
     // Source: https://developers.google.com/maps/documentation
     // /javascriptplaces-autocomplete
     var geolocation = new google.maps.LatLng(
@@ -249,6 +244,7 @@ var ViewModel = function() {
   }
 
   function createMarker(data) {
+    console.log("running marker");
     var name = data.name;
 
     var position = data.position;
@@ -295,8 +291,13 @@ var ViewModel = function() {
   }
 
   // On load initalize map
-  google.maps.event.addDomListener(window, "load", initializeMap);
+  google.maps.event.addDomListener(window, "load", function() {
+    // Add map
+    initializeMap();
 
+    // Add default places
+    self.getPlaces();
+  });
 };
 
 ko.applyBindings(new ViewModel());
