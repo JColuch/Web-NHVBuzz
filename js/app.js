@@ -8,12 +8,6 @@ var ViewModel = function() {
   // Cache DOM elms
   var $searchInput = $(".search-input")[0]; // autocomplete via Places library
   var mapContainer = document.getElementById("map-canvas");
-
-  // Cache DOM elms needed for CSS animations
-  var $sidebarBtn = $(".menu-toggle");
-  var $sidebar = $(".side-bar");
-  var $sidebarHeader = $(".side-bar-header");
-  var $infoPane = $(".info-bar");
   
   // Variables scoped to ViewModel
   var map;
@@ -29,26 +23,34 @@ var ViewModel = function() {
   self.searchTerm = ko.observable();
   self.sideBarTitle = ko.observable();
   self.chosenPlaceData = ko.observable();
+
+  self.isSidebarShowing = ko.observable(true);
+  self.isInfoBarShowing = ko.observable(false);
+
   self.placeList = ko.observableArray([]);
 
-  self.sideBarTitle("Places");
+  // View Triggered Behaviors  
+  self.toggleSidebar = function() {
+    var isShowing = self.isSidebarShowing();
 
-  // View Triggered Behaviors    
+    // Toggle sidebar
+    if (isShowing) {
+      self.isSidebarShowing(false);
+    } else {
+      self.isSidebarShowing(true);
+    }
+
+    // Ensure info bar is closed
+    self.isInfoBarShowing(false);
+  };
+
   self.goToPlace = function(place) { 
-    $infoPane.addClass("info-bar-active");
-    
+    self.isInfoBarShowing(true);
     self.chosenPlaceData(place);
   };
 
-  self.toggleSidebar = function() {
-    $sidebarBtn.toggleClass("toggle");
-    $sidebarHeader.toggleClass("sbh-active");
-    $sidebar.toggleClass("side-bar-active");
-    $infoPane.removeClass("info-bar-active");
-  };
-
   self.closeInfoBar = function() {
-    $infoPane.removeClass("info-bar-active");
+    self.isInfoBarShowing(false);
   };
 
   self.setInfoWindow = function(data) {

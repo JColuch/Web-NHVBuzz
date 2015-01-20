@@ -166,7 +166,8 @@ body {
   transition: all .6s cubic-bezier(.53, .15, .53, .97);
 }
 
-.sbh-active {
+/* Camel case so class is valid for knockoutjs bindings */
+.sbhActive {
   top: 50px;
 }
 
@@ -184,7 +185,7 @@ body {
   transition: all .6s cubic-bezier(.53, .15, .53, .97);
 }
 
-.side-bar-active {
+.sideBarActive {
   top: 103px;
 }
 
@@ -220,7 +221,7 @@ body {
   transition: all .6s cubic-bezier(.53, .15, .53, .97);
 }
 
-.info-bar-active {
+.infoBarActive {
   top: 99px;
 }
 
