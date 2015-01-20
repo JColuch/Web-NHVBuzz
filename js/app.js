@@ -6,20 +6,18 @@ var ViewModel = function() {
   var self = this;
 
   // Cache DOM elms
-  var $searchInput = $(".search-input")[0]; // autocomplete via Places library
+  var searchInput = document.getElementsByClassName("search-input")[0];
   var mapContainer = document.getElementById("map-canvas");
   
   // Variables scoped to ViewModel
   var map;
-  var mapBounds;
-
-  var infoWindow = new google.maps.InfoWindow();
   
   var markers = [];
+  var infoWindow = new google.maps.InfoWindow();
 
-  // Default to New Haven, CT
-  var currentLocation = { lat: 41.3100, lng: -72.924 };
+  var currentLocation = { lat: 41.3100, lng: -72.924 }; // New Haven, CT
 
+  // Observables
   self.searchTerm = ko.observable();
   self.sideBarTitle = ko.observable();
   self.chosenPlaceData = ko.observable();
@@ -29,7 +27,9 @@ var ViewModel = function() {
 
   self.placeList = ko.observableArray([]);
 
-  // View Triggered Behaviors  
+  /**
+   * Toggle side bar
+   */ 
   self.toggleSidebar = function() {
     var isShowing = self.isSidebarShowing();
 
@@ -44,15 +44,24 @@ var ViewModel = function() {
     self.isInfoBarShowing(false);
   };
 
+  /**
+   * Show info bar w/ place data
+   */
   self.goToPlace = function(place) { 
     self.isInfoBarShowing(true);
     self.chosenPlaceData(place);
   };
 
+  /**
+   * Hide info bar
+   */
   self.closeInfoBar = function() {
     self.isInfoBarShowing(false);
   };
 
+  /**
+   * Update infoWindows properties and show
+   */
   self.setInfoWindow = function(data) {
     var content = "";
     content += '<h4 class="iw-title"><a href="' + data.url + '">';
@@ -70,6 +79,9 @@ var ViewModel = function() {
     map.panTo(data.position);
   };
 
+  /**
+   * Get places based on search term from Foursquare API
+   */
   self.getPlaces =function() {
     // Get search term from input
     var searchTerm = self.searchTerm();
@@ -89,17 +101,22 @@ var ViewModel = function() {
     self.getFoursquareData(searchTerm);
   };
 
-
-
   // Operations
+
+  /**
+   * Get places based on search term from Foursquare API
+   */
   function loadSideBar(data) {
     // Empty side bar
     self.placeList.removeAll();
 
+    // Load list data
     self.placeList(data);
   }
 
-
+  /**
+   * Get places based on search term from Foursquare API
+   */
   self.getFoursquareData = function(query) {
     var CLIENT_ID = "S5NWL3EHTULCWQBMZPATQXYRSJJY1ZIDZQVEDE5RQA2XU3L2";
     var CLIENT_SECRET = "SHMKP1QG43ZKS55DPJO3P3PA5XAUYKZWKANFTT4A54FHVLQV";
@@ -122,10 +139,12 @@ var ViewModel = function() {
       dataType: "jsonp",
       method: "GET",
       success: self.foursquareCallback
-    })
-  }
+    });
+  };
 
-
+  /**
+   * Handle Foursquare API response
+   */
   self.foursquareCallback = function(response) {
     var statusCode = response.meta.code;
     if (statusCode !== 200) {
@@ -136,13 +155,11 @@ var ViewModel = function() {
     var results = response.response.groups[0].items;
     var data = self.parseFoursquareData(results);
     loadSideBar(data);
+  };
 
-    // Pan to location of first response item
-    //var coords = data[0].position;
-    //setCurrentLocation(coords);
-  }
-
-
+  /**
+   * Parse Foursquare API response data
+   */
   self.parseFoursquareData = function(results) {
     var foursquareData = [];
     var place;
@@ -164,26 +181,18 @@ var ViewModel = function() {
         position: getPositionCoords(venue.location)
       };
 
-
       createMarker(place);
 
       foursquareData.push(place);
     }
 
     return foursquareData;
-  }
+  };
 
   //** HELPER FUNCTIONS **//
-
   /**
-   *  
+   * Format location coordinates for Foursqyare API
    */
-  function setCurrentLocation(coords) {
-    currentLocation = coords;
-
-    map.panTo(coords);
-  }
-
   function parseCurrentLocation() {
     var lng = currentLocation.lng;
     var lat = currentLocation.lat;
@@ -191,13 +200,19 @@ var ViewModel = function() {
     return lat + ',' + lng;
   }
 
+  /**
+   * Get position coords from location object
+   */
   function getPositionCoords(location) {
     return {
       lat: location.lat,
       lng: location.lng
-    }
+    };
   }
 
+  /**
+   * Assemble full address from Foursquare location object
+   */
   function getFullAddress(location) {
     var fullAddress = "";
 
@@ -208,7 +223,9 @@ var ViewModel = function() {
     return fullAddress;
   }
 
-
+  /**
+   * Initial Google Map
+   */
   function initializeMap() {
     // Set map options
     var mapOptions = {
@@ -242,17 +259,16 @@ var ViewModel = function() {
       types: ['establishment']
     };
 
-    autocomplete = new google.maps.places.Autocomplete($searchInput, options);
+    autocomplete = new google.maps.places.Autocomplete(searchInput, options);
   }
 
+  /**
+   * Create Google Map Marker
+   */
   function createMarker(data) {
-    console.log("running marker");
     var name = data.name;
-
     var position = data.position;
    
-    var address = data.address;
-
     var rating = data.rating || "No rating available";
 
     // marker is an object with additional data about the pin
@@ -274,30 +290,38 @@ var ViewModel = function() {
 
   // SOURCE: https://developers.google.com/maps/documentation/
   // javascript/examples/marker-remove
-  // Sets the map on all markers in the array.
+  /**
+   * Sets the map on all markers in the array.
+   */
   function setAllMap(map) {
     for (var i = 0; i < markers.length; i++) {
       markers[i].setMap(map);
     }
   }
 
-  // Removes the markers from the map, but keeps them in the array.
+  /**
+   * Removes the markers from the map, but keeps them in the array.
+   */
   function clearMarkers() {
     setAllMap(null);
   }
 
-  // Deletes all markers in the array by removing references to them.
+  /**
+   * Deletes all markers in the array by removing references to them.
+   */
   function deleteMarkers() {
     clearMarkers();
     markers = [];
   }
 
-  // On load initalize map
+  /**
+   * On load initialize map and fetch default locations
+   */
   google.maps.event.addDomListener(window, "load", function() {
     // Add map
     initializeMap();
 
-    // Add default places
+    // Fetch default places
     self.getPlaces();
   });
 };

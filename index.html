@@ -42,7 +42,9 @@
       <div class="place-listing" data-bind="">
 
         <div class="place-header">
+
           <h3 class="place-title" data-bind="text: name"></h3>
+
           <div class="place-icons text-center">
 
             <div class="place-link" data-bind="click: $root.goToPlace">
@@ -54,8 +56,8 @@
               <i class="fa fa-map-marker"></i>
             </div>
 
-
           </div>
+
         </div>
 
         <div class="place-content">
@@ -105,7 +107,7 @@
 
       <div class="ib-twitter ib-icon">
         <i class="fa fa-twitter ib-icon"></i>
-        <a data-bind="text: twitter, attr: { href: twitter }"></a>
+        <span data-bind="text: twitter"></span>
       </div>
 
       <div class="ib-web">
