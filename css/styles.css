@@ -6,6 +6,13 @@ the actions can be pinned to either the top or the bottom of the toolbar.
 
 */
 
+/* 
+  Naming convention to handle css animations
+  base class vs. active class
+
+
+
+*/
 
 
 /*------------------------------------*\
@@ -20,10 +27,71 @@ body,
   padding: 0;
 }
 
-body {
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-
+input[type="text"] {
+  border: none;
+  border-bottom: 2px solid #ccc;
+  text-decoration: none;
+  outline: none;
 }
+
+
+
+
+/*------------------------------------*\
+        #HELPER-STYLES
+\*------------------------------------*/
+
+.btn-search {
+  border: none;
+  outline: none;
+  background: #fff;
+  padding: 5px;
+  font-size: 16px;
+}
+
+.btn-toggle {
+  position: absolute;
+  top: 25px;
+  left: 10px;
+  height: 45px;
+  width: 45px;
+  background: rgba(255,255,255, 1);
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
+  border-radius: 50%;
+  z-index: 200;
+  font-size: 20px;
+  cursor: pointer;
+  -moz-transition: all .6s cubic-bezier(.53, .15, .53, .97);
+  -webkit-transition: all .6s cubic-bezier(.53, .15, .53, .97);
+  transition: all .6s cubic-bezier(.53, .15, .53, .97);
+}
+
+.btn-toggle-active {
+  -moz-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+  box-shadow: 0 -3px 5px 0 rgba(0,0,0,.2);
+  left: 270px;
+}
+
+.btn-toggle i {
+  margin: 12px auto;  
+}
+
+.btn-close {
+  position: absolute;
+  top: 17px;
+  right: 10px;
+  text-decoration: underline; 
+}
+
+
+
+
+/*------------------------------------*\
+        #HEADER-STYLES
+\*------------------------------------*/
+
 .header {
   position: fixed;
   top: 0;
@@ -36,7 +104,7 @@ body {
   box-shadow: 0 2px 5px rgba(0,0,0,0.26);
 }
 
-.logo {
+.main-logo {
   display: inline-block;
   width: 250px;
   margin: 8px 50px 0 50px;
@@ -58,23 +126,11 @@ body {
   vertical-align: top;
   color: #777;
 }
-.search-input {
+
+.input-search {
   width: 450px;
-/*  height: 30px;*/
-  border: none;
-  border-bottom: 2px solid #ccc;
-  text-decoration: none;
-  outline: none;
-  
 }
 
-.btn-search {
-  border: none;
-  outline: none;
-  background: #fff;
-  padding: 5px;
-  font-size: 16px;
-}
 
 
 
@@ -84,7 +140,7 @@ body {
         #INFOWINDOW-STYLES
 \*------------------------------------*/
 
-/* Add to Google default style */
+/* Add to Google Maps Info Window class default style */
 .gm-style-iw {
   min-width: 200px;
 }
@@ -107,46 +163,6 @@ body {
 
 
 
-/*------------------------------------*\
-        #MENU-TOGGLE
-\*------------------------------------*/
-
-.menu-toggle {
-  position: absolute;
-  top: 25px;
-  left: 10px;
-  height: 45px;
-  width: 45px;
-/*  padding: 1px 10px;*/
-  background: rgba(255,255,255, 1);
-  box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
-  border-radius: 50%;
-  z-index: 200;
-  font-size: 20px;
-  cursor: pointer;
-  -moz-transition: all .6s cubic-bezier(.53, .15, .53, .97);
-  -webkit-transition: all .6s cubic-bezier(.53, .15, .53, .97);
-  transition: all .6s cubic-bezier(.53, .15, .53, .97);
-}
-
-.toggle {
-  -moz-transform: rotate(180deg);
-  -webkit-transform: rotate(180deg);
-  transform: rotate(180deg);
-  box-shadow: 0 -3px 5px 0 rgba(0,0,0,.2);
-  left: 270px;
-}
-
-.fa-chevron-down {
-  margin: 12px auto;
-}
-
-.close-btn {
-  position: absolute;
-  top: 17px;
-  right: 10px;
-  text-decoration: underline;
-}
 
 
 
@@ -204,9 +220,14 @@ body {
 
 
 
+
+
 /*------------------------------------*\
         #INFOBAR-STYLES
 \*------------------------------------*/
+
+/* Info pane */
+
 
 .info-bar {
   position: fixed;
@@ -274,7 +295,6 @@ body {
   border-bottom: 1px solid #eee;
 }
 
-
 .place-title {
   display: inline-block;
 }
@@ -294,7 +314,6 @@ body {
   font-size: 18px;
 }
 
-
 .place-icons {
   float: right;
   margin-top: -2px;
@@ -305,7 +324,6 @@ body {
   font-size: 20px;
   cursor: pointer;
 }
-
 
 .place-address {
   font-size: 12px;

@@ -6,9 +6,9 @@ var ViewModel = function() {
   var self = this;
 
   // Cache DOM elms
-  var searchInput = document.getElementsByClassName("search-input")[0];
   var mapContainer = document.getElementById("map-canvas");
-  
+  var searchInput = document.getElementsByClassName("input-search")[0];
+
   // Variables scoped to ViewModel
   var map;
   
@@ -106,17 +106,6 @@ var ViewModel = function() {
   /**
    * Get places based on search term from Foursquare API
    */
-  function loadSideBar(data) {
-    // Empty side bar
-    self.placeList.removeAll();
-
-    // Load list data
-    self.placeList(data);
-  }
-
-  /**
-   * Get places based on search term from Foursquare API
-   */
   self.getFoursquareData = function(query) {
     var CLIENT_ID = "S5NWL3EHTULCWQBMZPATQXYRSJJY1ZIDZQVEDE5RQA2XU3L2";
     var CLIENT_SECRET = "SHMKP1QG43ZKS55DPJO3P3PA5XAUYKZWKANFTT4A54FHVLQV";
@@ -191,6 +180,17 @@ var ViewModel = function() {
 
   //** HELPER FUNCTIONS **//
   /**
+   * Get places based on search term from Foursquare API
+   */
+  function loadSideBar(data) {
+    // Empty side bar
+    self.placeList.removeAll();
+
+    // Load list data
+    self.placeList(data);
+  }
+
+  /**
    * Format location coordinates for Foursqyare API
    */
   function parseCurrentLocation() {
@@ -220,6 +220,7 @@ var ViewModel = function() {
     fullAddress += location.city ? ", " + location.city : "";
     fullAddress += location.state ? ", " + location.state : "";
 
+    // Maybe do an indexOf to remove any leading or trailing ","'s?
     return fullAddress;
   }
 

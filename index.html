@@ -12,26 +12,39 @@
 </head>
 <body>
 
+
+
+
   <header class="header">
 
-    <h1 class="logo">NHV Buzz</h1>
+    <h1 class="main-logo">NHV Buzz</h1>
 
     <div class="search-bar">
+
       <form data-bind="submit: getPlaces">
-        <input type="text" class="search-input" data-bind="value: searchTerm" placeholder="Search by type">
+
+        <input type="text" class="input-search" data-bind="value: searchTerm" placeholder="Search by type">
+        
         <button type="submit" class="btn-search"><i class="fa fa-search"></i></button>
+      
       </form>
+
     </div>
-    <div class="text-center menu-toggle toggle" data-bind="click: toggleSidebar,
-                                                           css: { toggle: isSidebarShowing() }">
+
+    <div class="btn-toggle btn-toggle-active text-center" data-bind="click: toggleSidebar,
+                                                                     css: { 'btn-toggle-active': isSidebarShowing() }">
       <i class="fa fa-chevron-down"></i>
     </div>
+
+
   </header>
 
 
 
   <div class="side-bar-header sbhActive" data-bind="css: { sbhActive: isSidebarShowing() }">
+
     <h2 class="side-bar-title" data-bind="text: sideBarTitle">Favorite Places</h2>
+
   </div>
   
 
@@ -85,6 +98,10 @@
   </div> <!-- End .side-bar -->
 
 
+
+
+
+
   <div class="info-bar" data-bind="css: { infoBarActive: isInfoBarShowing() }">
     <h2 class="info-bar-title">More Information</h2>
 
@@ -121,12 +138,11 @@
 
     </div>
 
-
-
-
-    <div class="text-center close-btn">
+    <div class="text-center btn-close">
       <a href="#" data-bind="click: closeInfoBar">close</a>
     </div>
+
+    
   </div>
 
 
