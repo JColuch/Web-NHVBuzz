@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CityBuzz</title>
+  <title>NHV Buzz</title>
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/styles.css">
@@ -12,43 +12,27 @@
 </head>
 <body>
 
-
-
-
   <header class="header">
-
     <h1 class="main-logo">NHV Buzz</h1>
-
     <div class="search-bar">
-
       <form data-bind="submit: getPlaces">
-
         <input type="text" class="input-search" data-bind="value: searchTerm" placeholder="Search by type">
-        
         <button type="submit" class="btn-search"><i class="fa fa-search"></i></button>
-      
       </form>
-
     </div>
-
     <div class="btn-toggle btn-toggle-active text-center" data-bind="click: toggleSidebar,
                                                                      css: { 'btn-toggle-active': isSidebarActive() }">
       <i class="fa fa-chevron-down"></i>
     </div>
-
-
   </header>
 
 
   <div class="sidebar sidebar-active" data-bind="css: { 'sidebar-active': isSidebarActive() }">
 
     <div class="sidebar-header" >
-
       <h2 class="heading-primary" data-bind="text: sideBarTitle">Favorite Places</h2>
-
     </div>
     
-
     <div class= "sidebar-data" data-bind="foreach: venueList">
 
       <div class="venue-data">
@@ -59,7 +43,7 @@
 
           <div class="venue-icons text-center">
 
-            <div class="venue-link" data-bind="click: $root.goToPlace">
+            <div class="venue-link" data-bind="click: $root.showDropPanel">
               <i class="fa fa-info-circle"></i>
             </div>
 
@@ -131,22 +115,12 @@
       </div>
 
       <div class="text-center btn-close">
-        <a href="#" data-bind="click: closeInfoBar">close</a>
+        <a href="#" data-bind="click: hideDropPanel">close</a>
       </div>
-
 
     </div> <!-- End. sidebar-drop-panel -->
 
-
   </div>  <!-- End .sidebar -->
-
-
-
-
-
-
-
-
 
   <div id="map-canvas"></div>
 

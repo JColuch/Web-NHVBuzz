@@ -5,8 +5,10 @@
 var ViewModel = function() {
   var self = this;
 
-  // Cache DOM elms
+  // Cached DOM elm mapContainer needed to append Google Maps
   var mapContainer = document.getElementById("map-canvas");
+
+  // Cached DOM elm searchInput for Google autocomplete feature
   var searchInput = document.getElementsByClassName("input-search")[0];
 
   // Variables scoped to ViewModel
@@ -45,17 +47,17 @@ var ViewModel = function() {
   };
 
   /**
-   * Show drop panel w/ place data
+   * Show drop panel w/ venue data
    */
-  self.goToPlace = function(place) { 
+  self.showDropPanel = function(venue) { 
     self.isDropPanelActive(true);
-    self.selectedVenueData(place);
+    self.selectedVenueData(venue);
   };
 
   /**
    * Hide drop panel
    */
-  self.closeInfoBar = function() {
+  self.hideDropPanel = function() {
     self.isDropPanelActive(false);
   };
 
