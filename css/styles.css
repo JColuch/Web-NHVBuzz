@@ -12,12 +12,28 @@ body,
 
 input[type="text"] {
   border: none;
-  border-bottom: 2px solid #ccc;
+  border-bottom: 1px solid #fff;
   text-decoration: none;
   outline: none;
 }
 
-
+/** 
+ * Source: http://stackoverflow.com/questions/2610497/
+ * change-an-inputs-html5-placeholder-color-with-css
+ */
+/* WebKit browsers */
+::-webkit-input-placeholder {
+  color: #eee;
+}
+/* Mozilla Firefox 19+ */
+::-moz-placeholder {
+  color: #eee;
+  opacity:  1;
+}
+/* Internet Explorer 10+ */
+:-ms-input-placeholder {
+  color: #eee;
+}
 
 
 /*------------------------------------*\
@@ -27,18 +43,19 @@ input[type="text"] {
 .btn-search {
   border: none;
   outline: none;
-  background: #fff;
+  background: none;
+  color: #fff;
   padding: 5px;
   font-size: 16px;
 }
 
 .btn-toggle {
   position: absolute;
-  top: 25px;
+  top: 20px;
   left: 10px;
   height: 45px;
   width: 45px;
-  background: rgba(255,255,255, 1);
+  background: #fcfcfc; /*rgba(255,255,255, 1);*/
   box-shadow: 0 1px 2px 0 rgba(0,0,0,.2);
   border-radius: 50%;
   z-index: 200;
@@ -73,12 +90,11 @@ input[type="text"] {
   margin: 0;
   padding: 15px 10px;
   font-size: 22px;
-  background: #fff;
-  border-bottom: 1px solid #eee;
 }
 
 .heading-secondary {
-  font-size: 20px
+  font-size: 20px;
+  border-bottom: 1px solid #eee;
 }
 
 
@@ -92,21 +108,21 @@ input[type="text"] {
 .header {
   position: fixed;
   top: 0;
-  height: 50px;
+  height: 44px;
   width: 100%;
   padding: 0 10px;
   min-width: 970px;
   z-index: 130;
-  background: #fff;
+  background: #009688;
   box-shadow: 0 2px 5px rgba(0,0,0,0.26);
 }
 
 .main-logo {
   display: inline-block;
   width: 250px;
-  margin: 8px 50px 0 50px;
+  margin: 6px 50px 0 50px;
   font-size: 28px;
-  color: #333;
+  color: #fff;
 }
 
 
@@ -119,13 +135,14 @@ input[type="text"] {
 
 .search-bar {
   display: inline-block;
-  margin: 8px 0 0 5px;
+  margin: 6px 0 0 5px;
   vertical-align: top;
-  color: #777;
+  color: #fff;
 }
 
 .input-search {
   width: 450px;
+  background: none;
 }
 
 
@@ -180,12 +197,13 @@ input[type="text"] {
 }
 
 .sidebar-active {
-  top: 50px;
+  top: 44px;
 }
 
 .sidebar-header {
   position: relative;
   z-index: 200;
+  background: #E0F2F1;
 }
 
 .sidebar-data {
@@ -208,7 +226,7 @@ input[type="text"] {
 }
 
 .drop-panel-active {
-  top: 99px;
+  top: 96px;
 }
 
 
@@ -250,12 +268,13 @@ input[type="text"] {
 .venue-title {
   margin: 0;
   width: 80%;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .venue-icons {
   float: right;
   margin-top: -2px;
+  color: #555;
 }
 
 .venue-link {
@@ -293,7 +312,8 @@ input[type="text"] {
 
 .venue-title-iso {
   margin: 0 0 5px;
-  font-size: 22px;
+  font-size: 18px;
+  width: 100%;
 }
 
 .venue-phone-iso,

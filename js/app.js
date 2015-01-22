@@ -84,7 +84,7 @@ var ViewModel = function() {
   /**
    * Get places based on search term from Foursquare API
    */
-  self.getPlaces =function() {
+  self.getVenues =function() {
     // Get search term from input
     var searchTerm = self.searchTerm();
     if (!searchTerm) {
@@ -325,7 +325,7 @@ var ViewModel = function() {
     initializeMap();
 
     // Fetch default places
-    self.getPlaces();
+    self.getVenues();
   });
 };
 
@@ -334,29 +334,3 @@ ko.applyBindings(new ViewModel());
 
 
 
-/* --------------------------- *\
-  #MODELS
-\* --------------------------- */
-
-var modelFavorites = [
-  {
-    name: "Claire's Cornocopia",
-    location: "New Haven, CT"
-  },
-  {
-    name: "Starbucks Coffee",
-    location: "New Haven, CT"
-  },
-  {
-    name: "Yale University",
-    location: "New Haven, CT"
-  },
-  {
-    name: "Yale-New Haven Hospital",
-    location: "New Haven, CT"
-  },
-  {
-    name: "Blue State Coffee",
-    location: "New Haven, CT"
-  }
-];
