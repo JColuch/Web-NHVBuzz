@@ -1,20 +1,3 @@
-/*
-
-Toolbars have a standard height, 56 dp on mobile and 64 dp on desktop, 
-but they can be taller. When taller, 
-the actions can be pinned to either the top or the bottom of the toolbar.
-
-*/
-
-/* 
-  Naming convention to handle css animations
-  base class vs. active class
-
-
-
-*/
-
-
 /*------------------------------------*\
         #GENERAL-STYLES
 \*------------------------------------*/
@@ -85,7 +68,8 @@ input[type="text"] {
   text-decoration: underline; 
 }
 
-.title-primary {
+.heading-primary,
+.heading-secondary {
   margin: 0;
   padding: 15px 10px;
   font-size: 22px;
@@ -93,9 +77,12 @@ input[type="text"] {
   border-bottom: 1px solid #eee;
 }
 
-.title-secondary {
+.heading-secondary {
   font-size: 20px
 }
+
+
+
 
 
 /*------------------------------------*\
@@ -145,7 +132,6 @@ input[type="text"] {
 
 
 
-
 /*------------------------------------*\
         #INFOWINDOW-STYLES
 \*------------------------------------*/
@@ -174,25 +160,6 @@ input[type="text"] {
 
 
 
-/*
-info window
-  iw-icon
-  iw-address
-
-sidebar
-  sidebar-header
-  sidebar-data
-    sb-title
-    sb-...
-
-sidebar-drop-panel
-  infopane-header
-  infopane-data
-  ip-title
-  ip-secondary
-
-
-*/
 
 /*------------------------------------*\
         #SIDEBAR-STYLES
@@ -203,7 +170,7 @@ sidebar-drop-panel
   position: fixed;
   top: -100%;
   left: 0;
-  height: 80%;
+  height: 83%;
   width: 330px;
   background: #fff;
   box-shadow: 0 2px 5px rgba(0,0,0,0.26);
@@ -247,92 +214,63 @@ sidebar-drop-panel
 
 
 
-.ib-info {
-  padding: 20px;
-}
-
-.ib-title {
-  margin: 0 0 5px;
-  font-size: 22px;
-}
-
-.ib-phone,
-.ib-type,
-.ib-web,
-.ib-twitter {
-  display: block;
-  padding: 5px 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis; 
-}
-
-.ib-icon {
-  margin-right: 10px;
-}
-
-.ib-img {
-  margin-top: 10px;
-  padding: 5px;
-  border-radius: 2px
-}
-
 
 /*------------------------------------*\
-        #PLACE-LISTING-STYLES
+        #VENUE-STYLES
 \*------------------------------------*/
 
-
-
-
-.place-listing {
+.venue-data {
   padding: 10px 10px 6px;
   background: #fff;
   border-radius: 2px;
   border-bottom: 1px solid #eee;
 }
 
-.place-title {
+.venue-header {
+
+}
+
+.venue-content {
+
+}
+
+.venue-title {
   display: inline-block;
 }
 
-.place-title,
-.place-address,
-.place-phone,
-.place-type {
+.venue-title,
+.venue-address,
+.venue-phone,
+.venue-type {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;  
 }
 
-.place-title {
+.venue-title {
   margin: 0;
   width: 80%;
   font-size: 18px;
 }
 
-.place-icons {
+.venue-icons {
   float: right;
   margin-top: -2px;
 }
 
-.place-link {
+.venue-link {
   padding: 0 0 3px;
   font-size: 20px;
   cursor: pointer;
 }
 
-.place-address {
+.venue-address {
   font-size: 12px;
   padding-bottom: 3px
 }
 
-.place-data {
-  margin: 0;
-}
-
-.place-phone,
-.place-type {
+.venue-phone,
+.venue-type {
   display: inline-block;
   width: 45%;
 }
@@ -341,6 +279,40 @@ sidebar-drop-panel
 
 
 
+/*------------------------------------*\
+        #VENUE-ISOLATED-STYLES
+\*------------------------------------*/
+
+.venue-data-iso {
+  border: none;
+}
+
+.venue-info-iso {
+  padding: 20px;
+}
+
+.venue-title-iso {
+  margin: 0 0 5px;
+  font-size: 22px;
+}
+
+.venue-phone-iso,
+.venue-type-iso,
+.venue-web-iso,
+.venue-twitter-iso {
+  display: block;
+  padding: 5px 0;
+}
+
+.venue-icon-iso {
+  margin-right: 10px;
+}
+
+.venue-img-iso {
+  margin-top: 10px;
+  padding: 5px;
+  border-radius: 2px
+}
 
 
 

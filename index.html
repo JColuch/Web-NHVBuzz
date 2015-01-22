@@ -44,26 +44,26 @@
 
     <div class="sidebar-header" >
 
-      <h2 class="title-primary" data-bind="text: sideBarTitle">Favorite Places</h2>
+      <h2 class="heading-primary" data-bind="text: sideBarTitle">Favorite Places</h2>
 
     </div>
     
 
     <div class= "sidebar-data" data-bind="foreach: venueList">
 
-      <div class="place-listing" data-bind="">
+      <div class="venue-data">
 
-        <div class="place-header">
+        <div class="venue-header">
 
-          <h3 class="place-title" data-bind="text: name"></h3>
+          <h3 class="venue-title" data-bind="text: name"></h3>
 
-          <div class="place-icons text-center">
+          <div class="venue-icons text-center">
 
-            <div class="place-link" data-bind="click: $root.goToPlace">
+            <div class="venue-link" data-bind="click: $root.goToPlace">
               <i class="fa fa-info-circle"></i>
             </div>
 
-            <div class="place-link" data-bind="click: $root.setInfoWindow">
+            <div class="venue-link" data-bind="click: $root.setInfoWindow">
               <i class="fa fa-map-marker"></i>
             </div>
 
@@ -71,18 +71,19 @@
 
         </div>
 
-        <div class="place-content">
+
+        <div class="venue-description">
           
-          <div class="place-address">
+          <div class="venue-address">
             <span data-bind="text: $data.address"></span>
           </div>
 
-          <div class="place-phone">
+          <div class="venue-phone">
             <i class="fa fa-phone"></i>
             <span data-bind="text: phone"></span>
           </div>
 
-          <div class="place-type">
+          <div class="venue-type">
             <i class="fa fa-tag"></i>
             <span data-bind="text: type"></span>
           </div>
@@ -94,32 +95,32 @@
     </div> <!-- End .sidebar-data -->
 
     <div class="drop-panel" data-bind="css: { 'drop-panel-active': isDropPanelActive() }">
-      <h2 class="title-secondary">More Information</h2>
+      <h2 class="heading-secondary">More Information</h2>
 
-      <div class="ib-info" data-bind="with: selectedVenueData">
-        <h3 class="ib-title" data-bind="text: name">Super GYM Time</h3>
+      <div class="venue-data venue-data-iso" data-bind="with: selectedVenueData">
+        <h3 class="venue-title venue-title-iso" data-bind="text: name">Super GYM Time</h3>
 
-        <div class="place-address">
+        <div class="venue-address venu-address-iso">
           <span data-bind="text: address"></span>
         </div>
 
-        <div class="ib-phone">
-          <i class="fa fa-phone ib-icon"></i>
+        <div class="venue-phone venue-phone-iso">
+          <i class="fa fa-phone venue-icon-iso"></i>
           <span data-bind="text: phone"></span>
         </div>
         
-        <div class="ib-type">
-          <i class="fa fa-tag ib-icon"></i>
+        <div class="venue-type venue-type-iso">
+          <i class="fa fa-tag venue-icon-iso"></i>
           <span data-bind="text: type"></span>
         </div>
 
-        <div class="ib-twitter ib-icon">
-          <i class="fa fa-twitter ib-icon"></i>
+        <div class="venue-twitter venue-twitter-iso">
+          <i class="fa fa-twitter venue-icon-iso"></i>
           <span data-bind="text: twitter"></span>
         </div>
 
-        <div class="ib-web">
-          <i class="fa fa-globe ib-icon"></i>
+        <div class="venue-web-iso">
+          <i class="fa fa-globe venue-icon-iso"></i>
           <a data-bind="text: websiteName, attr: { href: url }" target="_blank"></a>
         </div>
   <!-- 
