@@ -119,9 +119,7 @@ var ViewModel = function() {
     requestUrl += "?client_id=" + CLIENT_ID;
     requestUrl += "&client_secret=" + CLIENT_SECRET;
     requestUrl += "&v=20130815"; // version
-    requestUrl += "&intent=global";
     requestUrl += "&ll=" + location; // lat, lng
-    
     requestUrl += "&query=" + query;
     requestUrl += "&limit=15";
 
@@ -330,7 +328,6 @@ var ViewModel = function() {
 };
 
 ko.applyBindings(new ViewModel());
-
 
 
 
