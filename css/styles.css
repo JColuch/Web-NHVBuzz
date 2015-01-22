@@ -85,7 +85,17 @@ input[type="text"] {
   text-decoration: underline; 
 }
 
+.title-primary {
+  margin: 0;
+  padding: 15px 10px;
+  font-size: 22px;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+}
 
+.title-secondary {
+  font-size: 20px
+}
 
 
 /*------------------------------------*\
@@ -164,35 +174,36 @@ input[type="text"] {
 
 
 
+/*
+info window
+  iw-icon
+  iw-address
 
+sidebar
+  sidebar-header
+  sidebar-data
+    sb-title
+    sb-...
+
+sidebar-drop-panel
+  infopane-header
+  infopane-data
+  ip-title
+  ip-secondary
+
+
+*/
 
 /*------------------------------------*\
         #SIDEBAR-STYLES
 \*------------------------------------*/
 
-.side-bar-header {
-  z-index: 120;
-  position: fixed;
-  top: -1000px;
-  left: 0;
-  height: 43px;
-  width: 330px;
-  -moz-transition: all .6s cubic-bezier(.53, .15, .53, .97);
-  -webkit-transition: all .6s cubic-bezier(.53, .15, .53, .97);
-  transition: all .6s cubic-bezier(.53, .15, .53, .97);
-}
-
-/* Camel case so class is valid for knockoutjs bindings */
-.sbhActive {
-  top: 50px;
-}
-
-.side-bar {
+.sidebar {
   z-index: 100;
   position: fixed;
-  top: -1000px;
+  top: -100%;
   left: 0;
-  height: 85%;
+  height: 80%;
   width: 330px;
   background: #fff;
   box-shadow: 0 2px 5px rgba(0,0,0,0.26);
@@ -201,50 +212,40 @@ input[type="text"] {
   transition: all .6s cubic-bezier(.53, .15, .53, .97);
 }
 
-.sideBarActive {
-  top: 103px;
+.sidebar-active {
+  top: 50px;
 }
 
-.info-bar-title,
-.side-bar-title {
-  margin: 0;
-  padding: 15px 10px;
-  font-size: 22px;
-  background: #fff;
-  border-bottom: 1px solid #eee;
+.sidebar-header {
+  position: relative;
+  z-index: 200;
 }
 
-.info-bar-title {
-  font-size: 20px
+.sidebar-data {
+  height: 100%;
+  overflow-y: auto;
+  color: #444;
 }
 
-
-
-
-
-/*------------------------------------*\
-        #INFOBAR-STYLES
-\*------------------------------------*/
-
-/* Info pane */
-
-
-.info-bar {
+.drop-panel {
   position: fixed;
-  top: -1000px;
+  top: -100%;
   left: 0;
   height: 100%;
   width: 330px;
   background: #fff; 
-  z-index: 110;
+  z-index: 100;
   -moz-transition: all .6s cubic-bezier(.53, .15, .53, .97);
   -webkit-transition: all .6s cubic-bezier(.53, .15, .53, .97);
   transition: all .6s cubic-bezier(.53, .15, .53, .97);
 }
 
-.infoBarActive {
+.drop-panel-active {
   top: 99px;
 }
+
+
+
 
 .ib-info {
   padding: 20px;
@@ -282,11 +283,7 @@ input[type="text"] {
 \*------------------------------------*/
 
 
-.place-listings {
-  height: 100%;
-  overflow-y: auto;
-  color: #444;
-}
+
 
 .place-listing {
   padding: 10px 10px 6px;

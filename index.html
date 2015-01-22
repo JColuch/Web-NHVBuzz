@@ -32,7 +32,7 @@
     </div>
 
     <div class="btn-toggle btn-toggle-active text-center" data-bind="click: toggleSidebar,
-                                                                     css: { 'btn-toggle-active': isSidebarShowing() }">
+                                                                     css: { 'btn-toggle-active': isSidebarActive() }">
       <i class="fa fa-chevron-down"></i>
     </div>
 
@@ -40,17 +40,16 @@
   </header>
 
 
+  <div class="sidebar sidebar-active" data-bind="css: { 'sidebar-active': isSidebarActive() }">
 
-  <div class="side-bar-header sbhActive" data-bind="css: { sbhActive: isSidebarShowing() }">
+    <div class="sidebar-header" >
 
-    <h2 class="side-bar-title" data-bind="text: sideBarTitle">Favorite Places</h2>
+      <h2 class="title-primary" data-bind="text: sideBarTitle">Favorite Places</h2>
 
-  </div>
-  
+    </div>
+    
 
-  <div class="side-bar sideBarActive" data-bind="css: { sideBarActive: isSidebarShowing() }">
-
-    <div class="place-listings" data-bind="foreach: placeList">
+    <div class= "sidebar-data" data-bind="foreach: venueList">
 
       <div class="place-listing" data-bind="">
 
@@ -63,7 +62,6 @@
             <div class="place-link" data-bind="click: $root.goToPlace">
               <i class="fa fa-info-circle"></i>
             </div>
-
 
             <div class="place-link" data-bind="click: $root.setInfoWindow">
               <i class="fa fa-map-marker"></i>
@@ -90,60 +88,63 @@
           </div>
 
         </div>
+
+      </div> <!-- End .place-listing -->
+
+    </div> <!-- End .sidebar-data -->
+
+    <div class="drop-panel" data-bind="css: { 'drop-panel-active': isDropPanelActive() }">
+      <h2 class="title-secondary">More Information</h2>
+
+      <div class="ib-info" data-bind="with: selectedVenueData">
+        <h3 class="ib-title" data-bind="text: name">Super GYM Time</h3>
+
+        <div class="place-address">
+          <span data-bind="text: address"></span>
+        </div>
+
+        <div class="ib-phone">
+          <i class="fa fa-phone ib-icon"></i>
+          <span data-bind="text: phone"></span>
+        </div>
+        
+        <div class="ib-type">
+          <i class="fa fa-tag ib-icon"></i>
+          <span data-bind="text: type"></span>
+        </div>
+
+        <div class="ib-twitter ib-icon">
+          <i class="fa fa-twitter ib-icon"></i>
+          <span data-bind="text: twitter"></span>
+        </div>
+
+        <div class="ib-web">
+          <i class="fa fa-globe ib-icon"></i>
+          <a data-bind="text: websiteName, attr: { href: url }" target="_blank"></a>
+        </div>
+  <!-- 
+        <div class="ib-img">
+          <img class="img-responsive ib-img" data-bind="attr: { src: imgUrl }" alt="Not available">
+        </div> -->
+
+      </div>
+
+      <div class="text-center btn-close">
+        <a href="#" data-bind="click: closeInfoBar">close</a>
       </div>
 
 
-    </div>
-
-  </div> <!-- End .side-bar -->
+    </div> <!-- End. sidebar-drop-panel -->
 
 
-
+  </div>  <!-- End .sidebar -->
 
 
 
-  <div class="info-bar" data-bind="css: { infoBarActive: isInfoBarShowing() }">
-    <h2 class="info-bar-title">More Information</h2>
 
-    <div class="ib-info" data-bind="with: chosenPlaceData">
-      <h3 class="ib-title" data-bind="text: name">Super GYM Time</h3>
 
-      <div class="place-address">
-        <span data-bind="text: address"></span>
-      </div>
 
-      <div class="ib-phone">
-        <i class="fa fa-phone ib-icon"></i>
-        <span data-bind="text: phone"></span>
-      </div>
-      
-      <div class="ib-type">
-        <i class="fa fa-tag ib-icon"></i>
-        <span data-bind="text: type"></span>
-      </div>
 
-      <div class="ib-twitter ib-icon">
-        <i class="fa fa-twitter ib-icon"></i>
-        <span data-bind="text: twitter"></span>
-      </div>
-
-      <div class="ib-web">
-        <i class="fa fa-globe ib-icon"></i>
-        <a data-bind="text: websiteName, attr: { href: url }" target="_blank"></a>
-      </div>
-<!-- 
-      <div class="ib-img">
-        <img class="img-responsive ib-img" data-bind="attr: { src: imgUrl }" alt="Not available">
-      </div> -->
-
-    </div>
-
-    <div class="text-center btn-close">
-      <a href="#" data-bind="click: closeInfoBar">close</a>
-    </div>
-
-    
-  </div>
 
 
   <div id="map-canvas"></div>

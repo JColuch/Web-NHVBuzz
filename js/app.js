@@ -20,43 +20,43 @@ var ViewModel = function() {
   // Observables
   self.searchTerm = ko.observable();
   self.sideBarTitle = ko.observable();
-  self.chosenPlaceData = ko.observable();
+  self.selectedVenueData = ko.observable();
 
-  self.isSidebarShowing = ko.observable(true);
-  self.isInfoBarShowing = ko.observable(false);
+  self.isSidebarActive = ko.observable(true);
+  self.isDropPanelActive = ko.observable(false);
 
-  self.placeList = ko.observableArray([]);
+  self.venueList = ko.observableArray([]);
 
   /**
    * Toggle side bar
    */ 
   self.toggleSidebar = function() {
-    var isShowing = self.isSidebarShowing();
+    var isShowing = self.isSidebarActive();
 
     // Toggle sidebar
     if (isShowing) {
-      self.isSidebarShowing(false);
+      self.isSidebarActive(false);
     } else {
-      self.isSidebarShowing(true);
+      self.isSidebarActive(true);
     }
 
-    // Ensure info bar is closed
-    self.isInfoBarShowing(false);
+    // Ensure drop panel is closed
+    self.isDropPanelActive(false);
   };
 
   /**
-   * Show info bar w/ place data
+   * Show drop panel w/ place data
    */
   self.goToPlace = function(place) { 
-    self.isInfoBarShowing(true);
-    self.chosenPlaceData(place);
+    self.isDropPanelActive(true);
+    self.selectedVenueData(place);
   };
 
   /**
-   * Hide info bar
+   * Hide drop panel
    */
   self.closeInfoBar = function() {
-    self.isInfoBarShowing(false);
+    self.isDropPanelActive(false);
   };
 
   /**
@@ -184,10 +184,10 @@ var ViewModel = function() {
    */
   function loadSideBar(data) {
     // Empty side bar
-    self.placeList.removeAll();
+    self.venueList.removeAll();
 
     // Load list data
-    self.placeList(data);
+    self.venueList(data);
   }
 
   /**
