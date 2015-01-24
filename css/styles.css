@@ -138,10 +138,11 @@ input[type="text"] {
   margin: 6px 0 0 5px;
   vertical-align: top;
   color: #fff;
+  width: 450px;
 }
 
 .input-search {
-  width: 450px;
+  width: 80%;
   background: none;
 }
 
@@ -337,3 +338,79 @@ input[type="text"] {
 
 
 
+
+/*------------------------------------*\
+        #MEDIA-QUERIES-STYLES
+\*------------------------------------*/
+
+/**
+ * Source: http://css-tricks.com/snippets/css/
+ * media-queries-for-standard-devices/;
+ */
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+  .btn-toggle {
+    top: 40px;
+    left: 5px;
+    box-shadow: none;
+  }
+
+  .btn-toggle-active {
+    left: 5px;
+    box-shadow: none;
+  }
+
+  .header {
+    height: 90px;
+    min-width: 320px;
+  }
+
+  .main-logo {
+    display: block;
+    margin: 0;
+    padding: 5px 0;
+  }
+
+  .search-bar {
+    display: block;
+    text-align: right;
+  }
+
+  .input-search {
+    width: 80%;
+  }
+
+  .sidebar,
+  .drop-panel {
+    width: 100%;
+  }
+
+  .sidebar-active {
+    top: 90px;
+  }
+
+  .drop-panel-active {
+    top: 144px;
+  }
+}
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) {
+  .header {
+    min-width: 768px;
+    with: 100%;
+  }
+
+  .search-bar {
+    width: 350px;
+  }
+}
+
+/* Desktops and laptops ----------- */
+@media only screen 
+and (min-width : 1224px) {
+/* Styles */
+}
