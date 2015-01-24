@@ -13,10 +13,8 @@ var ViewModel = function() {
 
   // Variables scoped to ViewModel
   var map;
-
   var markers = [];
   var infoWindow = new google.maps.InfoWindow();
-
   var currentLocation = { lat: 41.3100, lng: -72.924 }; // New Haven, CT
 
 
@@ -107,7 +105,7 @@ var ViewModel = function() {
     infoWindow.close();
 
     // Update Side Bar Title
-    var title = searchTerm.charAt(0).toUpperCase() + searchTerm.slice(1);
+    var title = capitalizeFirstLetter(searchTerm);
     self.sideBarTitle(title);
 
     getFoursquareData(searchTerm);
@@ -233,7 +231,9 @@ var ViewModel = function() {
     return fullAddress;
   }
 
-
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 
 
   //--------------------------------------- GOOGLE MAP API HELPERS ----*  
