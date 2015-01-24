@@ -13,11 +13,14 @@ var ViewModel = function() {
 
   // Variables scoped to ViewModel
   var map;
-  
+
   var markers = [];
   var infoWindow = new google.maps.InfoWindow();
 
   var currentLocation = { lat: 41.3100, lng: -72.924 }; // New Haven, CT
+
+
+
 
   // Observables
   self.searchTerm = ko.observable();
@@ -28,6 +31,10 @@ var ViewModel = function() {
   self.isDropPanelActive = ko.observable(false);
 
   self.venueList = ko.observableArray([]);
+
+
+
+  //--------------------------------------- List UI Features ----*
 
   /**
    * Toggle side bar
@@ -81,6 +88,9 @@ var ViewModel = function() {
     map.panTo(data.position);
   };
 
+
+
+  //--------------------------------------- AJAX call feature ----*
   /**
    * Get places based on search term from Foursquare API
    */
@@ -100,15 +110,15 @@ var ViewModel = function() {
     var title = searchTerm.charAt(0).toUpperCase() + searchTerm.slice(1);
     self.sideBarTitle(title);
 
-    self.getFoursquareData(searchTerm);
+    getFoursquareData(searchTerm);
   };
 
-  // Operations
-
+  
+  //--------------------------------------- AJAX HELPERS  ----*
   /**
    * Get places based on search term from Foursquare API
    */
-  self.getFoursquareData = function(query) {
+  function getFoursquareData(query) {
     var CLIENT_ID = "S5NWL3EHTULCWQBMZPATQXYRSJJY1ZIDZQVEDE5RQA2XU3L2";
     var CLIENT_SECRET = "SHMKP1QG43ZKS55DPJO3P3PA5XAUYKZWKANFTT4A54FHVLQV";
 
@@ -127,14 +137,14 @@ var ViewModel = function() {
       url: requestUrl,
       dataType: "jsonp",
       method: "GET",
-      success: self.foursquareCallback
+      success: foursquareCallback
     });
   };
 
   /**
    * Handle Foursquare API response
    */
-  self.foursquareCallback = function(response) {
+  function foursquareCallback(response) {
     var statusCode = response.meta.code;
     if (statusCode !== 200) {
       console.log("FOURSQUARE ERROR");
@@ -142,14 +152,14 @@ var ViewModel = function() {
     }
 
     var results = response.response.groups[0].items;
-    var data = self.parseFoursquareData(results);
+    var data = parseFoursquareData(results);
     loadSideBar(data);
   };
 
   /**
    * Parse Foursquare API response data
    */
-  self.parseFoursquareData = function(results) {
+  function parseFoursquareData(results) {
     var foursquareData = [];
     var place;
 
@@ -178,7 +188,6 @@ var ViewModel = function() {
     return foursquareData;
   };
 
-  //** HELPER FUNCTIONS **//
   /**
    * Get places based on search term from Foursquare API
    */
@@ -224,6 +233,10 @@ var ViewModel = function() {
     return fullAddress;
   }
 
+
+
+
+  //--------------------------------------- GOOGLE MAP API HELPERS ----*  
   /**
    * Initial Google Map
    */
