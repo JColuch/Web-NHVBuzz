@@ -101,13 +101,18 @@ var ViewModel = function() {
 
     // Clear input box
     self.searchTerm("");
+
+    // Remove map markers
     deleteMarkers();
+
+    // Close map info window
     infoWindow.close();
 
     // Update Side Bar Title
     var title = capitalizeFirstLetter(searchTerm);
     self.sideBarTitle(title);
 
+    // Get venue data via AJAX call to Foursquare API
     getFoursquareData(searchTerm);
   };
 
@@ -159,28 +164,18 @@ var ViewModel = function() {
    */
   function parseFoursquareData(results) {
     var foursquareData = [];
-    var place;
+    var venue;
 
     for (var i = 0, len = results.length; i < len; i++) {
-      var venue = results[i].venue;
-      var tips = results[i].tips ? results[i].tips[0] : "";
+      // Generate new FoursquareVenue object
+      var data = results[i].venue;
+      venue = new FoursquareVenue(data);
 
-      place = {
-        name: venue.name,
-        type: venue.categories[0].name,
-        address: getFullAddress(venue.location) || "Not available",
-        phone: venue.contact.formattedPhone || "Not available",
-        twitter: venue.contact.twitter || "Not available",
-        rating: venue.rating || "Not available",
-        websiteName: venue.url || "Not available",
-        url: venue.url || "#",
-        imgUrl: tips.photourl || "",
-        position: getPositionCoords(venue.location)
-      };
+      // Create Google Map marker for venue
+      createMarker(venue);
 
-      createMarker(place);
-
-      foursquareData.push(place);
+      // Add to foursquareData array
+      foursquareData.push(venue);
     }
 
     return foursquareData;
@@ -205,30 +200,6 @@ var ViewModel = function() {
     var lat = currentLocation.lat;
 
     return lat + ',' + lng;
-  }
-
-  /**
-   * Get position coords from location object
-   */
-  function getPositionCoords(location) {
-    return {
-      lat: location.lat,
-      lng: location.lng
-    };
-  }
-
-  /**
-   * Assemble full address from Foursquare location object
-   */
-  function getFullAddress(location) {
-    var fullAddress = "";
-
-    fullAddress += location.address ? location.address : "";
-    fullAddress += location.city ? ", " + location.city : "";
-    fullAddress += location.state ? ", " + location.state : "";
-
-    // Maybe do an indexOf to remove any leading or trailing ","'s?
-    return fullAddress;
   }
 
   function capitalizeFirstLetter(string) {
@@ -344,3 +315,56 @@ ko.applyBindings(new ViewModel());
 
 
 
+
+
+/* --------------------------- *\
+  #FoursqaureVenue Object
+\* --------------------------- */
+
+/**
+ * @constructor
+ */
+function FoursquareVenue(data) {
+  this.name = data.name;
+
+  this.type = data.categories[0].name;
+
+  this.address = this.getFullAddress(data.location) || "Not available";
+  
+  this.phone = data.contact.formattedPhone || "Not available";
+  
+  this.twitter = data.contact.twitter || "Not available";
+  
+  this.rating = data.rating || "Not available";
+  
+  this.websiteName = data.url || "Not available";
+  
+  this.url = data.url || "#";
+  
+  this.position = this.getPositionCoords(data.location);
+
+}
+
+/**
+ * Get position coords from location object
+ */
+FoursquareVenue.prototype.getPositionCoords = function(location) {
+  return {
+    lat: location.lat,
+    lng: location.lng
+  };
+};
+
+/**
+ * Assemble full address from Foursquare location object
+ */
+FoursquareVenue.prototype.getFullAddress = function(location) {
+  var fullAddress = "";
+
+  fullAddress += location.address ? location.address : "";
+  fullAddress += location.city ? ", " + location.city : "";
+  fullAddress += location.state ? ", " + location.state : "";
+
+  // Maybe do an indexOf to remove any leading or trailing ","'s?
+  return fullAddress;
+};
