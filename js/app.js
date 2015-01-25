@@ -114,7 +114,7 @@ var ViewModel = function() {
     infoWindow.close();
 
     // Update sidebar title
-    var title = capitalizeFirstLetter(searchTerm);
+    var title = "Results for: " + capitalizeFirstLetter(searchTerm);
     self.sidebarTitle(title);
 
     // Get venue data via AJAX call to Foursquare API
@@ -186,7 +186,7 @@ var ViewModel = function() {
     if (!len) {
       self.isError(true);
       self.errorMessage("No results found, try again!");
-      return;
+      return [];
     }
 
     var foursquareData = [];
@@ -229,7 +229,7 @@ var ViewModel = function() {
   }
 
   function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+    return string; //string.charAt(0).toUpperCase() + string.slice(1);
   }
 
 
@@ -252,23 +252,6 @@ var ViewModel = function() {
 
     // Set ViewModel scoped variables
     map = new google.maps.Map(mapContainer, mapOptions);
-
-    // Source: https://developers.google.com/maps/documentation
-    // /javascriptplaces-autocomplete
-    var geolocation = new google.maps.LatLng(
-          currentLocation.lat, currentLocation.lng);
-
-    var circle = new google.maps.Circle({
-      center: geolocation,
-      radius: 1000
-    });
-    
-    var mapBounds = circle.getBounds();
-
-    var options = {
-      bounds: mapBounds,
-      types: ['establishment']
-    };
   }
 
   /**
@@ -400,6 +383,5 @@ FoursquareVenue.prototype.getFormattedRating = function(rating) {
   if (!rating) {
     return "Not available";
   }
-
   return rating + " / 10";
 }
