@@ -22,11 +22,12 @@ var ViewModel = function() {
 
   // Observables
   self.searchTerm = ko.observable();
-  self.sideBarTitle = ko.observable();
+  self.sidebarTitle = ko.observable();
   self.selectedVenueData = ko.observable();
 
   self.isSidebarActive = ko.observable(true);
   self.isDropPanelActive = ko.observable(false);
+  self.isAjaxError = ko.observable(false);
 
   self.venueList = ko.observableArray([]);
 
@@ -95,6 +96,8 @@ var ViewModel = function() {
   self.getVenues =function() {
     // Get search term from input
     var searchTerm = self.searchTerm();
+
+    // If no search term present default search to restaurants
     if (!searchTerm) {
       searchTerm = "Restaurants";
     }
@@ -108,9 +111,9 @@ var ViewModel = function() {
     // Close map info window
     infoWindow.close();
 
-    // Update Side Bar Title
+    // Update sidebar title
     var title = capitalizeFirstLetter(searchTerm);
-    self.sideBarTitle(title);
+    self.sidebarTitle(title);
 
     // Get venue data via AJAX call to Foursquare API
     getFoursquareData(searchTerm);
@@ -131,7 +134,7 @@ var ViewModel = function() {
     var requestUrl = "https://api.foursquare.com/v2/venues/explore";
     requestUrl += "?client_id=" + CLIENT_ID;
     requestUrl += "&client_secret=" + CLIENT_SECRET;
-    requestUrl += "&v=20130815"; // version
+    requestUrl += "&v=20130815"; // version - missing "v" on purpose to trigger error
     requestUrl += "&ll=" + location; // lat, lng
     requestUrl += "&query=" + query;
     requestUrl += "&limit=15";
@@ -151,6 +154,7 @@ var ViewModel = function() {
     var statusCode = response.meta.code;
     if (statusCode !== 200) {
       console.log("FOURSQUARE ERROR");
+      self.isAjaxError(true);
       return;
     }
 

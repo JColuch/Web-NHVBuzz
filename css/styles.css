@@ -86,7 +86,8 @@ input[type="text"] {
 }
 
 .heading-primary,
-.heading-secondary {
+.heading-secondary,
+.error-heading {
   margin: 0;
   padding: 15px 10px;
   font-size: 22px;
@@ -97,8 +98,21 @@ input[type="text"] {
   border-bottom: 1px solid #eee;
 }
 
+.error {
+  display: none;
+}
 
+.error-active {
+  display: block;
+}
 
+.error-heading {
+  color: #B65F5F;
+}
+
+.error-message {
+  padding: 10px;
+}
 
 
 /*------------------------------------*\
@@ -204,7 +218,8 @@ input[type="text"] {
 .sidebar-header {
   position: relative;
   z-index: 200;
-  background: #E0F2F1;
+  border-bottom: 1px solid #dedede;
+  background: #fcfcfc;
 }
 
 .sidebar-data {

@@ -30,9 +30,14 @@
   <div class="sidebar sidebar-active" data-bind="css: { 'sidebar-active': isSidebarActive() }">
 
     <div class="sidebar-header" >
-      <h2 class="heading-primary" data-bind="text: sideBarTitle">Favorite Places</h2>
+      <h2 class="heading-primary" data-bind="text: sidebarTitle">Favorite Places</h2>
     </div>
     
+    <div class="error" data-bind="css : { 'error-active': isAjaxError() }">
+      <h2 class="error-heading">Oops! Somethings not right..</h2>
+      <p class="error-message">Please try again later or contact the imaginary support team.</p>
+    </div>
+
     <div class= "sidebar-data" data-bind="foreach: venueList">
 
       <div class="venue-data">
