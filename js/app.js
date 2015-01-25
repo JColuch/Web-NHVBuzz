@@ -24,14 +24,13 @@ var ViewModel = function() {
   self.searchTerm = ko.observable();
   self.sidebarTitle = ko.observable();
   self.selectedVenueData = ko.observable();
-
+  self.errorMessage = ko.observable();
+  self.venueList = ko.observableArray([]);
+  
+  // UI flag observables
   self.isSidebarActive = ko.observable(true);
   self.isDropPanelActive = ko.observable(false);
   self.isError = ko.observable(false);
-
-  self.errorMessage = ko.observable();
-
-  self.venueList = ko.observableArray([]);
 
 
 
@@ -82,12 +81,17 @@ var ViewModel = function() {
     content += '<p class="iw-para"><i class="fa fa-tag iw-icon"></i>';
     content += data.type + '</li>';
 
-    console.log(data.position);
     infoWindow.setPosition(data.position);
     infoWindow.setContent(content);
     infoWindow.open(map);
 
     map.panTo(data.position);
+
+    // If on mobile close the sidebar to reveal map
+    if(isMobile.any() && width < 480) {
+      self.isSidebarActive(false);
+      self.isDropPanelActive(false);
+    }
   };
 
 
@@ -405,3 +409,34 @@ FoursquareVenue.prototype.getMapUrl = function (location) {
 FoursquareVenue.prototype.getPhoneLink = function(data) {
   return "tel:" + data.phone;
 }
+
+
+
+//Source: http://jstricks.com/detect-mobile-devices-javascript-jquery/
+var isMobile = {
+    Android: function() {
+      return navigator.userAgent.match(/Android/i);
+    },
+    BlackBerry: function() {
+      return navigator.userAgent.match(/BlackBerry/i);
+    },
+    iOS: function() {
+      return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
+    Opera: function() {
+      return navigator.userAgent.match(/Opera Mini/i);
+    },
+    Windows: function() {
+      return navigator.userAgent.match(/IEMobile/i);
+    },
+    any: function() {
+      return (isMobile.Android() ||
+        isMobile.BlackBerry() ||
+        isMobile.iOS() ||
+        isMobile.Opera() ||
+        isMobile.Windows());
+    }
+};
+
+// Source: http://php.quicoto.com/get-device-width-javascript/
+var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;

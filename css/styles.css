@@ -382,7 +382,6 @@ input[type="text"] {
     top: 85px;
     right: 5px;
     left: auto;
-    box-shadow: none;
   }
 
   .btn-toggle-active {
