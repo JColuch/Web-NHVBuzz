@@ -1,4 +1,121 @@
 /* --------------------------- *\
+  #FoursquareVenue Object
+\* --------------------------- */
+
+/**
+ * @constructor
+ */
+function FoursquareVenue(data) {
+  this.name = data.name;
+
+  this.type = data.categories[0].name;
+
+  this.address = this.getFullAddress(data.location) || "Not available";
+  
+  this.phone = data.contact.formattedPhone || "Not available";
+  
+  this.phoneLink = this.getPhoneLink(data.contact);
+  
+  this.rating = this.getFormattedRating(data.rating);
+  
+  this.websiteName = data.url || "Not available";
+  
+  this.url = data.url || "#";
+  
+  this.mapUrl = this.getMapUrl(data.location);
+
+  this.position = this.getPositionCoords(data.location);
+
+}
+
+/**
+ * Get position coords from location object
+ */
+FoursquareVenue.prototype.getPositionCoords = function(location) {
+  return {
+    lat: location.lat,
+    lng: location.lng
+  };
+};
+
+/**
+ * Assemble full address from Foursquare location object
+ */
+FoursquareVenue.prototype.getFullAddress = function(location) {
+  var fullAddress = "";
+
+  fullAddress += location.address ? location.address : "";
+  fullAddress += location.city ? ", " + location.city : "";
+  fullAddress += location.state ? ", " + location.state : "";
+
+  // Maybe do an indexOf to remove any leading or trailing ","'s?
+  return fullAddress;
+};
+
+/**
+ * Assemble full rating from Foursquare location object
+ */
+FoursquareVenue.prototype.getFormattedRating = function(rating) {
+  if (!rating) {
+    return "Not available";
+  }
+  return rating + " / 10";
+}
+
+FoursquareVenue.prototype.getMapUrl = function (location) {
+  var lat = location.lat;
+  var lng = location.lng;
+  var coords = lat + "," + lng;
+
+  var mapUrl = "https://maps.googleapis.com/maps/api/staticmap";
+  mapUrl += "?zoom=17&size=310x300";
+  mapUrl += "&maptype=roadmap";
+  mapUrl += "&markers=color:red%7Clabel:%7C" + coords;
+
+  return mapUrl;
+}
+
+FoursquareVenue.prototype.getPhoneLink = function(data) {
+  return "tel:" + data.phone;
+}
+
+
+
+//Source: http://jstricks.com/detect-mobile-devices-javascript-jquery/
+var isMobile = {
+    Android: function() {
+      return navigator.userAgent.match(/Android/i);
+    },
+    BlackBerry: function() {
+      return navigator.userAgent.match(/BlackBerry/i);
+    },
+    iOS: function() {
+      return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
+    Opera: function() {
+      return navigator.userAgent.match(/Opera Mini/i);
+    },
+    Windows: function() {
+      return navigator.userAgent.match(/IEMobile/i);
+    },
+    any: function() {
+      return (isMobile.Android() ||
+        isMobile.BlackBerry() ||
+        isMobile.iOS() ||
+        isMobile.Opera() ||
+        isMobile.Windows());
+    }
+};
+
+// Source: http://php.quicoto.com/get-device-width-javascript/
+var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+
+var LONGITUDE_OFFSET = .01;
+
+
+
+
+/* --------------------------- *\
   #VIEWMODEL
 \* --------------------------- */
 
@@ -85,7 +202,16 @@ var ViewModel = function() {
     infoWindow.setContent(content);
     infoWindow.open(map);
 
-    map.panTo(data.position);
+    // Center map on marker
+    var lat = data.position.lat;
+    var lng = data.position.lng
+
+    // Offset center if sidebar is open
+    if (self.isSidebarActive()) {
+      lng -= LONGITUDE_OFFSET;
+    }
+
+    map.panTo({lat: lat, lng: lng});
 
     // If on mobile close the sidebar to reveal map
     if(isMobile.any() && width < 480) {
@@ -329,114 +455,3 @@ ko.applyBindings(new ViewModel());
 
 
 
-/* --------------------------- *\
-  #FoursquareVenue Object
-\* --------------------------- */
-
-/**
- * @constructor
- */
-function FoursquareVenue(data) {
-  this.name = data.name;
-
-  this.type = data.categories[0].name;
-
-  this.address = this.getFullAddress(data.location) || "Not available";
-  
-  this.phone = data.contact.formattedPhone || "Not available";
-  
-  this.phoneLink = this.getPhoneLink(data.contact);
-  
-  this.rating = this.getFormattedRating(data.rating);
-  
-  this.websiteName = data.url || "Not available";
-  
-  this.url = data.url || "#";
-  
-  this.mapUrl = this.getMapUrl(data.location);
-
-  this.position = this.getPositionCoords(data.location);
-
-}
-
-/**
- * Get position coords from location object
- */
-FoursquareVenue.prototype.getPositionCoords = function(location) {
-  return {
-    lat: location.lat,
-    lng: location.lng
-  };
-};
-
-/**
- * Assemble full address from Foursquare location object
- */
-FoursquareVenue.prototype.getFullAddress = function(location) {
-  var fullAddress = "";
-
-  fullAddress += location.address ? location.address : "";
-  fullAddress += location.city ? ", " + location.city : "";
-  fullAddress += location.state ? ", " + location.state : "";
-
-  // Maybe do an indexOf to remove any leading or trailing ","'s?
-  return fullAddress;
-};
-
-/**
- * Assemble full rating from Foursquare location object
- */
-FoursquareVenue.prototype.getFormattedRating = function(rating) {
-  if (!rating) {
-    return "Not available";
-  }
-  return rating + " / 10";
-}
-
-FoursquareVenue.prototype.getMapUrl = function (location) {
-  var lat = location.lat;
-  var lng = location.lng;
-  var coords = lat + "," + lng;
-
-  var mapUrl = "https://maps.googleapis.com/maps/api/staticmap";
-  mapUrl += "?zoom=17&size=310x300";
-  mapUrl += "&maptype=roadmap";
-  mapUrl += "&markers=color:red%7Clabel:%7C" + coords;
-
-  return mapUrl;
-}
-
-FoursquareVenue.prototype.getPhoneLink = function(data) {
-  return "tel:" + data.phone;
-}
-
-
-
-//Source: http://jstricks.com/detect-mobile-devices-javascript-jquery/
-var isMobile = {
-    Android: function() {
-      return navigator.userAgent.match(/Android/i);
-    },
-    BlackBerry: function() {
-      return navigator.userAgent.match(/BlackBerry/i);
-    },
-    iOS: function() {
-      return navigator.userAgent.match(/iPhone|iPad|iPod/i);
-    },
-    Opera: function() {
-      return navigator.userAgent.match(/Opera Mini/i);
-    },
-    Windows: function() {
-      return navigator.userAgent.match(/IEMobile/i);
-    },
-    any: function() {
-      return (isMobile.Android() ||
-        isMobile.BlackBerry() ||
-        isMobile.iOS() ||
-        isMobile.Opera() ||
-        isMobile.Windows());
-    }
-};
-
-// Source: http://php.quicoto.com/get-device-width-javascript/
-var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
