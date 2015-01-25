@@ -275,7 +275,8 @@ input[type="text"] {
 .venue-title,
 .venue-address,
 .venue-phone,
-.venue-type {
+.venue-type,
+.venue-rating {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;  
@@ -335,9 +336,10 @@ input[type="text"] {
 .venue-phone-iso,
 .venue-type-iso,
 .venue-web-iso,
-.venue-twitter-iso {
+.venue-rating-iso {
   display: block;
   padding: 5px 0;
+  width: 100%;
 }
 
 .venue-icon-iso {

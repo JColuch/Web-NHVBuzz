@@ -322,7 +322,7 @@ ko.applyBindings(new ViewModel());
 
 
 /* --------------------------- *\
-  #FoursqaureVenue Object
+  #FoursquareVenue Object
 \* --------------------------- */
 
 /**
@@ -339,7 +339,7 @@ function FoursquareVenue(data) {
   
   this.twitter = data.contact.twitter || "Not available";
   
-  this.rating = data.rating || "Not available";
+  this.rating = this.getFormattedRating(data.rating);
   
   this.websiteName = data.url || "Not available";
   
@@ -372,3 +372,14 @@ FoursquareVenue.prototype.getFullAddress = function(location) {
   // Maybe do an indexOf to remove any leading or trailing ","'s?
   return fullAddress;
 };
+
+/**
+ * Assemble full rating from Foursquare location object
+ */
+FoursquareVenue.prototype.getFormattedRating = function(rating) {
+  if (!rating) {
+    return "Not available";
+  }
+
+  return rating + " / 10";
+}
