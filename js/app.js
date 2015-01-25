@@ -27,7 +27,9 @@ var ViewModel = function() {
 
   self.isSidebarActive = ko.observable(true);
   self.isDropPanelActive = ko.observable(false);
-  self.isAjaxError = ko.observable(false);
+  self.isError = ko.observable(false);
+
+  self.errorMessage = ko.observable();
 
   self.venueList = ko.observableArray([]);
 
@@ -151,13 +153,25 @@ var ViewModel = function() {
    * Handle Foursquare API response
    */
   function foursquareCallback(response) {
+    // Check for valid response
     var statusCode = response.meta.code;
+
+    // Handle invalid response
     if (statusCode !== 200) {
-      console.log("FOURSQUARE ERROR");
-      self.isAjaxError(true);
+      // Display error on view
+      self.isError(true);
+
+      // Show appropriate message
+      var msg = "Please try again later or contact the imaginary support team";
+      self.errorMessage(msg);
+
       return;
     }
 
+    // Reset error flag
+    self.isError(false);
+    
+    // Load response date to page
     var results = response.response.groups[0].items;
     var data = parseFoursquareData(results);
     loadSideBar(data);
@@ -167,10 +181,18 @@ var ViewModel = function() {
    * Parse Foursquare API response data
    */
   function parseFoursquareData(results) {
+    // Handle case where no results found
+    var len = results.length;
+    if (!len) {
+      self.isError(true);
+      self.errorMessage("No results found, try again!");
+      return;
+    }
+
     var foursquareData = [];
     var venue;
 
-    for (var i = 0, len = results.length; i < len; i++) {
+    for (var i = 0; i < len; i++) {
       // Generate new FoursquareVenue object
       var data = results[i].venue;
       venue = new FoursquareVenue(data);
@@ -247,8 +269,6 @@ var ViewModel = function() {
       bounds: mapBounds,
       types: ['establishment']
     };
-
-    autocomplete = new google.maps.places.Autocomplete(searchInput, options);
   }
 
   /**
