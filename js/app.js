@@ -463,7 +463,7 @@ var ViewModel = function() {
    * @return {object} Containing two properties lat, lng
    */
   function cloneCoords(coords) {
-    return { lat: position.lat, lng: position.lng };
+    return { lat: coords.lat, lng: coords.lng };
   }
 
   //--------------------------------------- GOOGLE MAP API HELPERS ----*  
