@@ -82,6 +82,7 @@ var ViewModel = function() {
     content += '<p class="iw-para"><i class="fa fa-tag iw-icon"></i>';
     content += data.type + '</li>';
 
+    console.log(data.position);
     infoWindow.setPosition(data.position);
     infoWindow.setContent(content);
     infoWindow.open(map);
@@ -348,6 +349,8 @@ function FoursquareVenue(data) {
   
   this.url = data.url || "#";
   
+  this.mapUrl = this.getMapUrl(data.location);
+
   this.position = this.getPositionCoords(data.location);
 
 }
@@ -384,4 +387,17 @@ FoursquareVenue.prototype.getFormattedRating = function(rating) {
     return "Not available";
   }
   return rating + " / 10";
+}
+
+FoursquareVenue.prototype.getMapUrl = function (location) {
+  var lat = location.lat;
+  var lng = location.lng;
+  var coords = lat + "," + lng;
+
+  var mapUrl = "https://maps.googleapis.com/maps/api/staticmap";
+  mapUrl += "?zoom=17&size=310x300";
+  mapUrl += "&maptype=roadmap";
+  mapUrl += "&markers=color:red%7Clabel:%7C" + coords;
+
+  return mapUrl;
 }
