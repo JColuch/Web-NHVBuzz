@@ -203,15 +203,14 @@ var ViewModel = function() {
     infoWindow.open(map);
 
     // Center map on marker
-    var lat = data.position.lat;
-    var lng = data.position.lng
+    var coords = cloneCoords(data.position);
 
     // Offset center if sidebar is open
     if (self.isSidebarActive()) {
-      lng -= LONGITUDE_OFFSET;
+      coords.lng -= LONGITUDE_OFFSET;
     }
 
-    map.panTo({lat: lat, lng: lng});
+    map.panTo(coords);
 
     // If on mobile close the sidebar to reveal map
     if(isMobile.any() && width < 480) {
@@ -363,6 +362,9 @@ var ViewModel = function() {
     return string; //string.charAt(0).toUpperCase() + string.slice(1);
   }
 
+  function cloneCoords(position) {
+    return { lat: position.lat, lng: position.lng };
+  }
 
   //--------------------------------------- GOOGLE MAP API HELPERS ----*  
   /**
