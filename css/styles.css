@@ -91,6 +91,9 @@ input[type="text"] {
   margin: 0;
   padding: 15px 10px;
   font-size: 22px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; 
 }
 
 .heading-secondary {
