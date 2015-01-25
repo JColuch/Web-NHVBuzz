@@ -341,7 +341,7 @@ function FoursquareVenue(data) {
   
   this.phone = data.contact.formattedPhone || "Not available";
   
-  this.twitter = data.contact.twitter || "Not available";
+  this.phoneLink = this.getPhoneLink(data.contact);
   
   this.rating = this.getFormattedRating(data.rating);
   
@@ -400,4 +400,8 @@ FoursquareVenue.prototype.getMapUrl = function (location) {
   mapUrl += "&markers=color:red%7Clabel:%7C" + coords;
 
   return mapUrl;
+}
+
+FoursquareVenue.prototype.getPhoneLink = function(data) {
+  return "tel:" + data.phone;
 }
