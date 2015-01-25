@@ -3,14 +3,64 @@
 \* --------------------------- */
 
 // Source: http://php.quicoto.com/get-device-width-javascript/
+/**
+ * Width of device screen in pixels
+ * @type {int}
+ */
 var WIDTH = (window.innerWidth > 0) ? window.innerWidth : screen.width;
 
-var LONGITUDE_OFFSET = .01;
+/**
+ * Offset 
+ * @type {float}
+ */
+var LONGITUDE_OFFSET = 0.01;
+
+
 
 
 
 /* --------------------------- *\
-  #FoursquareVenue Object
+  #HELPER FUNCTIONS
+\* --------------------------- */
+
+//Source: http://jstricks.com/detect-mobile-devices-javascript-jquery/
+/**
+ * Operates on an instance of MyClass and returns something.
+ * @param {project.MyClass} obj Instance of MyClass which leads to a long
+ *     comment that needs to be wrapped to two lines.
+ * @return {boolean} Whether something occurred.
+ */
+var isMobile = {
+    Android: function() {
+      return navigator.userAgent.match(/Android/i);
+    },
+    BlackBerry: function() {
+      return navigator.userAgent.match(/BlackBerry/i);
+    },
+    iOS: function() {
+      return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
+    Opera: function() {
+      return navigator.userAgent.match(/Opera Mini/i);
+    },
+    Windows: function() {
+      return navigator.userAgent.match(/IEMobile/i);
+    },
+    any: function() {
+      return (isMobile.Android() ||
+        isMobile.BlackBerry() ||
+        isMobile.iOS() ||
+        isMobile.Opera() ||
+        isMobile.Windows());
+    }
+};
+
+
+
+
+
+/* --------------------------- *\
+  #FoursquareVenue CLASS
 \* --------------------------- */
 
 /**
@@ -154,41 +204,6 @@ FoursquareVenue.prototype.getPhoneLink = function(data) {
 
 
 
-//Source: http://jstricks.com/detect-mobile-devices-javascript-jquery/
-/**
- * Operates on an instance of MyClass and returns something.
- * @param {project.MyClass} obj Instance of MyClass which leads to a long
- *     comment that needs to be wrapped to two lines.
- * @return {boolean} Whether something occurred.
- */
-var isMobile = {
-    Android: function() {
-      return navigator.userAgent.match(/Android/i);
-    },
-    BlackBerry: function() {
-      return navigator.userAgent.match(/BlackBerry/i);
-    },
-    iOS: function() {
-      return navigator.userAgent.match(/iPhone|iPad|iPod/i);
-    },
-    Opera: function() {
-      return navigator.userAgent.match(/Opera Mini/i);
-    },
-    Windows: function() {
-      return navigator.userAgent.match(/IEMobile/i);
-    },
-    any: function() {
-      return (isMobile.Android() ||
-        isMobile.BlackBerry() ||
-        isMobile.iOS() ||
-        isMobile.Opera() ||
-        isMobile.Windows());
-    }
-};
-
-
-
-
 
 
 /* --------------------------- *\
@@ -215,8 +230,6 @@ var ViewModel = function() {
   var currentLocation = { lat: 41.3100, lng: -72.924 }; // New Haven, CT
 
 
-
-
   // Observables
   self.searchTerm = ko.observable();
   self.sidebarTitle = ko.observable();
@@ -230,18 +243,8 @@ var ViewModel = function() {
   self.isError = ko.observable(false);
 
 
-
-  //--------------------------------------- List UI Features ----*
-
   /**
-   * Toggle side bar
-   */ 
-  /**
-   * Get position coords from location object
-   * @param {string} foo This is a param with a description too long to fit in
-   *     one line.
-   * @return {number} This returns something that has a description too long to
-   *     fit in one line.
+   * Toggle sidebar UI element
    */
   self.toggleSidebar = function() {
     var isShowing = self.isSidebarActive();
@@ -258,14 +261,8 @@ var ViewModel = function() {
   };
 
   /**
-   * Show drop panel w/ venue data
-   */
-  /**
-   * Get position coords from location object
-   * @param {string} foo This is a param with a description too long to fit in
-   *     one line.
-   * @return {number} This returns something that has a description too long to
-   *     fit in one line.
+   * Show droppanel UI element w/ venue data
+   * @param {project.FoursquareVenue} venue FoursquareVenue object
    */
   self.showDropPanel = function(venue) { 
     self.isDropPanelActive(true);
@@ -273,29 +270,16 @@ var ViewModel = function() {
   };
 
   /**
-   * Hide drop panel
-   */
-  /**
-   * Get position coords from location object
-   * @param {string} foo This is a param with a description too long to fit in
-   *     one line.
-   * @return {number} This returns something that has a description too long to
-   *     fit in one line.
+   * Hide drop panel UI element
    */
   self.hideDropPanel = function() {
     self.isDropPanelActive(false);
   };
 
   /**
-   * Update infoWindows properties and show
-   */
-  /**
-   * Get position coords from location object
-   * @param {string} foo This is a param with a description too long to fit in
-   *     one line.
-   * @return {number} This returns something that has a description too long to
-   *     fit in one line.
-   */
+   * Use venue data to add content to and display infoWindow
+   * @param {project.FoursquareVenue} venue FoursquareVenue object
+  */
   self.setInfoWindow = function(data) {
     var content = "";
     content += '<h4 class="iw-title"><a href="' + data.url + '">';
@@ -310,7 +294,7 @@ var ViewModel = function() {
     infoWindow.setContent(content);
     infoWindow.open(map);
 
-    // If on mobile close the sidebar to reveal map
+    // If on mobile, close the sidebar to reveal map
     if(isMobile.any() && WIDTH < 480) {
       self.isSidebarActive(false);
       self.isDropPanelActive(false);
@@ -326,18 +310,10 @@ var ViewModel = function() {
     map.panTo(coords);
   };
 
-
-
-  //--------------------------------------- AJAX call feature ----*
   /**
-   * Get places based on search term from Foursquare API
-   */
-  /**
-   * Get position coords from location object
+   * Request response from Foursquare API with user entered earch term
    * @param {string} foo This is a param with a description too long to fit in
    *     one line.
-   * @return {number} This returns something that has a description too long to
-   *     fit in one line.
    */
   self.getVenues =function() {
     // Get search term from input
@@ -358,7 +334,7 @@ var ViewModel = function() {
     infoWindow.close();
 
     // Update sidebar title
-    var title = "Results for: " + capitalizeFirstLetter(searchTerm);
+    var title = "Results for: " + searchTerm;
     self.sidebarTitle(title);
 
     // Get venue data via AJAX call to Foursquare API
@@ -367,15 +343,10 @@ var ViewModel = function() {
 
   
   //--------------------------------------- AJAX HELPERS  ----*
+
   /**
-   * Get places based on search term from Foursquare API
-   */
-  /**
-   * Get position coords from location object
-   * @param {string} foo This is a param with a description too long to fit in
-   *     one line.
-   * @return {number} This returns something that has a description too long to
-   *     fit in one line.
+   * Buiild and send asynchronous request to Foursquare API
+   * @param {string} query Search term
    */
   function getFoursquareData(query) {
     var CLIENT_ID = "S5NWL3EHTULCWQBMZPATQXYRSJJY1ZIDZQVEDE5RQA2XU3L2";
@@ -401,14 +372,8 @@ var ViewModel = function() {
   };
 
   /**
-   * Handle Foursquare API response
-   */
-  /**
-   * Get position coords from location object
-   * @param {string} foo This is a param with a description too long to fit in
-   *     one line.
-   * @return {number} This returns something that has a description too long to
-   *     fit in one line.
+   * Handle response from call to Foursquare API
+   * @param {object} response Response object from call to Foursquare API
    */
   function foursquareCallback(response) {
     // Check for valid response
@@ -436,14 +401,10 @@ var ViewModel = function() {
   };
 
   /**
-   * Parse Foursquare API response data
-   */
-  /**
-   * Get position coords from location object
-   * @param {string} foo This is a param with a description too long to fit in
-   *     one line.
-   * @return {number} This returns something that has a description too long to
-   *     fit in one line.
+   * Parse Foursquare API response data and create FoursquareVenue object
+   *     for each venue in response
+   * @param {object} results Response object from call to Foursquare API
+   * @return {array} Array of FoursquareVenue objects
    */
   function parseFoursquareData(results) {
     // Handle case where no results found
@@ -473,15 +434,8 @@ var ViewModel = function() {
   };
 
   /**
-   * Get places based on search term from Foursquare API
-   */
-
-  /**
-   * Get position coords from location object
-   * @param {string} foo This is a param with a description too long to fit in
-   *     one line.
-   * @return {number} This returns something that has a description too long to
-   *     fit in one line.
+   * Empty and load venueList observable array thereby updating sidebar view
+   * @param {array} data Array of FoursquareVenue objects
    */
   function loadSideBar(data) {
     // Empty side bar
@@ -492,14 +446,9 @@ var ViewModel = function() {
   }
 
   /**
-   * Format location coordinates for Foursqyare API
-   */
-  /**
-   * Get position coords from location object
-   * @param {string} foo This is a param with a description too long to fit in
-   *     one line.
-   * @return {number} This returns something that has a description too long to
-   *     fit in one line.
+   * Parse currentLocation and created comma separated string of lat,lng 
+   *     for use in Foursquare API request
+   * @return {string} Formatted string containing lat and lng details
    */
   function parseCurrentLocation() {
     var lng = currentLocation.lng;
@@ -508,24 +457,19 @@ var ViewModel = function() {
     return lat + ',' + lng;
   }
 
-  function capitalizeFirstLetter(string) {
-    return string; //string.charAt(0).toUpperCase() + string.slice(1);
-  }
-
-  function cloneCoords(position) {
+  /**
+   * Creates a copy of an object literal containing properties lat, lng
+   * @param {object} coords Object containing properties lat, lng
+   * @return {object} Containing two properties lat, lng
+   */
+  function cloneCoords(coords) {
     return { lat: position.lat, lng: position.lng };
   }
 
   //--------------------------------------- GOOGLE MAP API HELPERS ----*  
+
   /**
-   * Initial Google Map
-   */
-  /**
-   * Get position coords from location object
-   * @param {string} foo This is a param with a description too long to fit in
-   *     one line.
-   * @return {number} This returns something that has a description too long to
-   *     fit in one line.
+   * Set Google Map options and initialize map
    */
   function initializeMap() {
     // Set map options
@@ -546,13 +490,7 @@ var ViewModel = function() {
 
   /**
    * Create Google Map Marker
-   */
-  /**
-   * Get position coords from location object
-   * @param {string} foo This is a param with a description too long to fit in
-   *     one line.
-   * @return {number} This returns something that has a description too long to
-   *     fit in one line.
+   * @param {project.FoursquareVenue} venue FoursquareVenue object
    */
   function createMarker(data) {
     var name = data.name;
@@ -579,16 +517,10 @@ var ViewModel = function() {
 
   // SOURCE: https://developers.google.com/maps/documentation/
   // javascript/examples/marker-remove
-  /**
-   * Sets the map on all markers in the array.
-   */
 
   /**
-   * Get position coords from location object
-   * @param {string} foo This is a param with a description too long to fit in
-   *     one line.
-   * @return {number} This returns something that has a description too long to
-   *     fit in one line.
+   * Put all markers onto the Google map
+   * @param {object} map Google Maps object
    */
   function setAllMap(map) {
     for (var i = 0; i < markers.length; i++) {
@@ -597,28 +529,14 @@ var ViewModel = function() {
   }
 
   /**
-   * Removes the markers from the map, but keeps them in the array.
-   */
-  /**
-   * Get position coords from location object
-   * @param {string} foo This is a param with a description too long to fit in
-   *     one line.
-   * @return {number} This returns something that has a description too long to
-   *     fit in one line.
+   * Removes all markers from Google map
    */
   function clearMarkers() {
     setAllMap(null);
   }
 
   /**
-   * Deletes all markers in the array by removing references to them.
-   */
-  /**
-   * Get position coords from location object
-   * @param {string} foo This is a param with a description too long to fit in
-   *     one line.
-   * @return {number} This returns something that has a description too long to
-   *     fit in one line.
+   * Delete all markers stored in markers array
    */
   function deleteMarkers() {
     clearMarkers();
@@ -626,7 +544,7 @@ var ViewModel = function() {
   }
 
   /**
-   * On load initialize map and fetch default locations
+   * Set on load event initialize map and fetch default locations
    */
   google.maps.event.addDomListener(window, "load", function() {
     // Add map
@@ -638,7 +556,6 @@ var ViewModel = function() {
 };
 
 ko.applyBindings(new ViewModel());
-
 
 
 

@@ -323,6 +323,7 @@ input[type="text"] {
 
 
 
+
 /*------------------------------------*\
         #VENUE-ISOLATED-STYLES
 \*------------------------------------*/
@@ -379,7 +380,9 @@ input[type="text"] {
  */
 
 /* Smartphones (portrait and landscape) ----------- */
-@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 480px) {
   .btn-toggle {
     top: 85px;
     right: 5px;
