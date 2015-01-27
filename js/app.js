@@ -23,12 +23,9 @@ var LONGITUDE_OFFSET = 0.01;
   #HELPER FUNCTIONS
 \* --------------------------- */
 
-//Source: http://jstricks.com/detect-mobile-devices-javascript-jquery/
+// Source: http://jstricks.com/detect-mobile-devices-javascript-jquery/
 /**
- * Operates on an instance of MyClass and returns something.
- * @param {project.MyClass} obj Instance of MyClass which leads to a long
- *     comment that needs to be wrapped to two lines.
- * @return {boolean} Whether something occurred.
+ * Object containing methods to determine if/type of mobile device
  */
 var isMobile = {
     Android: function() {
@@ -229,7 +226,6 @@ var ViewModel = function() {
   var infoWindow = new google.maps.InfoWindow();
   var currentLocation = { lat: 41.3100, lng: -72.924 }; // New Haven, CT
 
-
   // Observables
   self.searchTerm = ko.observable();
   self.sidebarTitle = ko.observable();
@@ -242,7 +238,8 @@ var ViewModel = function() {
   self.isDropPanelActive = ko.observable(false);
   self.isError = ko.observable(false);
 
-
+  /** VIEWMODEL METHODS */
+  
   /**
    * Toggle sidebar UI element
    */
@@ -261,7 +258,7 @@ var ViewModel = function() {
   };
 
   /**
-   * Show droppanel UI element w/ venue data
+   * Show drop panel UI element w/ venue data
    * @param {project.FoursquareVenue} venue FoursquareVenue object
    */
   self.showDropPanel = function(venue) { 
@@ -301,6 +298,8 @@ var ViewModel = function() {
     }
 
     // Center map on marker
+    // Note - Use cloneCoords to avoid changing position value of venue
+    // due to object eference 
     var coords = cloneCoords(data.position);
     if (self.isSidebarActive()) {
       // Offset center if sidebar is open
@@ -341,8 +340,7 @@ var ViewModel = function() {
     getFoursquareData(searchTerm);
   };
 
-  
-  //--------------------------------------- AJAX HELPERS  ----*
+  /** AJAX HELPERS */
 
   /**
    * Buiild and send asynchronous request to Foursquare API
@@ -358,8 +356,8 @@ var ViewModel = function() {
     var requestUrl = "https://api.foursquare.com/v2/venues/explore";
     requestUrl += "?client_id=" + CLIENT_ID;
     requestUrl += "&client_secret=" + CLIENT_SECRET;
-    requestUrl += "&v=20130815"; // version - missing "v" on purpose to trigger error
-    requestUrl += "&ll=" + location; // lat, lng
+    requestUrl += "&v=20130815";
+    requestUrl += "&ll=" + location; // lat,lng
     requestUrl += "&query=" + query;
     requestUrl += "&limit=15";
 
@@ -466,7 +464,7 @@ var ViewModel = function() {
     return { lat: coords.lat, lng: coords.lng };
   }
 
-  //--------------------------------------- GOOGLE MAP API HELPERS ----*  
+  /** GOOGLE MAP API HELPERS */
 
   /**
    * Set Google Map options and initialize map
@@ -517,7 +515,6 @@ var ViewModel = function() {
 
   // SOURCE: https://developers.google.com/maps/documentation/
   // javascript/examples/marker-remove
-
   /**
    * Put all markers onto the Google map
    * @param {object} map Google Maps object
