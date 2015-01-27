@@ -126,6 +126,12 @@ function FoursquareVenue(data) {
    * @type {object}
    */
   this.position = this.getPositionCoords(data.location);
+
+  /**
+   * Google Maps API marker object
+   * @type {object}
+   */
+  this.marker;
 }
 
 /**
@@ -287,9 +293,8 @@ var ViewModel = function() {
     content += '<p class="iw-para"><i class="fa fa-tag iw-icon"></i>';
     content += data.type + '</li>';
 
-    infoWindow.setPosition(data.position);
     infoWindow.setContent(content);
-    infoWindow.open(map);
+    infoWindow.open(map, data.marker);
 
     // If on mobile, close the sidebar to reveal map
     if(isMobile.any() && WIDTH < 480) {
@@ -493,8 +498,6 @@ var ViewModel = function() {
   function createMarker(data) {
     var name = data.name;
     var position = data.position;
-   
-    var rating = data.rating || "No rating available";
 
     // marker is an object with additional data about the pin
     // for a single location
@@ -505,12 +508,25 @@ var ViewModel = function() {
       //animation: google.maps.Animation.DROP
     });
 
+    // Add marker to ViewModel scoped array
+    // markers array allows all markers to be manipulated easily
+    markers.push(marker);
+
+    // Add marker to venue data object so info window can be set on list
+    // view click event
+    data.marker = marker;
+
+    // Add click handler to marker
     google.maps.event.addListener(marker, 'click', function() {
       self.setInfoWindow(data);
-    });
 
-    // Keep track of markers
-    markers.push(marker);
+      // If sidebar is open show detailed venue data in drop panel
+      var sidebarOpen = self.isSidebarActive();
+      if (sidebarOpen) {
+        self.selectedVenueData(data);
+        self.isDropPanelActive(true);  
+      }
+    });
   }
 
   // SOURCE: https://developers.google.com/maps/documentation/
