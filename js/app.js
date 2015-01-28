@@ -364,7 +364,7 @@ var ViewModel = function() {
     requestUrl += "&v=20130815";
     requestUrl += "&ll=" + location; // lat,lng
     requestUrl += "&query=" + query;
-    requestUrl += "&limit=15";
+    requestUrl += "&limit=10";
 
     $.ajax({
       url: requestUrl,
