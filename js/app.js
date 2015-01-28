@@ -285,7 +285,7 @@ var ViewModel = function() {
   */
   self.setInfoWindow = function(data) {
     var content = "";
-    content += '<h4 class="iw-title"><a href="' + data.url + '" target="_blank">';
+    content += '<h4 class="iw-title"><a class="iw-link" href="' + data.url + '" target="_blank">';
     content += data.name + "</a></h4>";
     content += '<p class="iw-address">' + data.address + '</p>';
     content += '<p class="iw-para"><i class="fa fa-phone iw-icon"></i>';

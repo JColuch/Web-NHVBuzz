@@ -183,7 +183,13 @@ input[type="text"] {
 }
 
 .iw-title {
-  margin-bottom: 5px
+  margin-bottom: 5px;
+}
+
+.iw-link {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; 
 }
 
 .iw-address {
