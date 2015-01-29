@@ -18,9 +18,9 @@ NNH Buzz is a single page web application that allows users to explore all the g
 Featuring a responsive design, users can search for local establishments using key words (ex: restaurants, bars, coffee, etc) from any type of device.
 
 ###Project Demo
-Production: [Click here to view the project](https://joelcolucci.com/Web-NHVBuzz/build)
+Production: [Click here to view the project](http://joelcolucci.com/Web-NHVBuzz/build)
 
-Development: [Click here to view the project](https://joelcolucci.com/Web-NHVBuzz)
+Development: [Click here to view the project](http://joelcolucci.com/Web-NHVBuzz)
 
 ###How to use
 
