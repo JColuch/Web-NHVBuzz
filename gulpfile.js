@@ -44,7 +44,7 @@ gulp.task('html', function() {
   gulp.src('*.html')
     .pipe(htmlReplace({
       'css': 'css/all.min.css',
-      'js': '/js/all.min.js'
+      'js': 'js/all.min.js'
     }))
     .pipe(minifyHtml(opts))
     .pipe(gulp.dest('build/'));
