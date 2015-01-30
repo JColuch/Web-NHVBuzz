@@ -336,6 +336,9 @@ var ViewModel = function() {
     // Close map info window
     infoWindow.close();
 
+    // Close details drop panel to show list results
+    self.isDropPanelActive(false);
+
     // Update sidebar title
     var title = "Results for: " + searchTerm;
     self.sidebarTitle(title);
@@ -388,7 +391,8 @@ var ViewModel = function() {
       self.isError(true);
 
       // Show appropriate message
-      var msg = "Please try again later or contact the imaginary support team";
+      var msg = "Please try again later";
+      msg += "or contact the imaginary support team!";
       self.errorMessage(msg);
 
       return;
