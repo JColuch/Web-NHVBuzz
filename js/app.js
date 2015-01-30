@@ -364,7 +364,7 @@ var ViewModel = function() {
     var requestUrl = "https://api.foursquare.com/v2/venues/explore";
     requestUrl += "?client_id=" + CLIENT_ID;
     requestUrl += "&client_secret=" + CLIENT_SECRET;
-    requestUrl += "&=20130815";
+    requestUrl += "&=v20130815";
     requestUrl += "&ll=" + location; // lat,lng
     requestUrl += "&query=" + query;
     requestUrl += "&limit=10";
