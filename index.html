@@ -29,6 +29,10 @@
     <div class="sidebar-header" >
       <h2 class="heading-secondary" data-bind="text: sidebarTitle">Favorite Places</h2>
     </div>
+    <div class="error" data-bind="css : { 'error-active': isError() }">
+      <h2 class="error-heading">Oops!</h2>
+      <p class="error-message" data-bind="text: errorMessage"></p>
+    </div>
     <div class= "sidebar-data" data-bind="foreach: venueList">
       <div class="venue-data">
         <div class="venue-header">
@@ -88,10 +92,6 @@
         <a href="#" data-bind="click: hideDropPanel">close</a>
       </div>
     </div> <!-- End. .drop-panel -->
-    <div class="error" data-bind="css : { 'error-active': isError() }">
-      <h2 class="error-heading">Oops!</h2>
-      <p class="error-message" data-bind="text: errorMessage"></p>
-    </div>
   </div>  <!-- End .sidebar -->
   <div id="map-canvas"></div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

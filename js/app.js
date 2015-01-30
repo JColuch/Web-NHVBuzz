@@ -129,6 +129,7 @@ function FoursquareVenue(data) {
 
   /**
    * Google Maps API marker object
+   * Assignment occurs in createMarker function when valid response received
    * @type {object}
    */
   this.marker;
@@ -174,7 +175,7 @@ FoursquareVenue.prototype.getFormattedRating = function(rating) {
     return "Not available";
   }
   return rating + " / 10";
-}
+};
 
 /**
  * Assembles Google Maps static map URL for venue location 
@@ -193,7 +194,7 @@ FoursquareVenue.prototype.getMapUrl = function (location) {
   mapUrl += "&markers=color:red%7Clabel:%7C" + coords;
 
   return mapUrl;
-}
+};
 
 /**
  * Formats phone # for use as href attribute of anchor tag
@@ -203,7 +204,7 @@ FoursquareVenue.prototype.getMapUrl = function (location) {
  */
 FoursquareVenue.prototype.getPhoneLink = function(data) {
   return "tel:" + data.phone;
-}
+};
 
 
 
@@ -215,10 +216,6 @@ FoursquareVenue.prototype.getPhoneLink = function(data) {
 
 /**
  * Get position coords from location object
- * @param {string} foo This is a param with a description too long to fit in
- *     one line.
- * @return {number} This returns something that has a description too long to
- *     fit in one line.
  */
 var ViewModel = function() {
   var self = this;
@@ -232,7 +229,9 @@ var ViewModel = function() {
   var infoWindow = new google.maps.InfoWindow();
   var currentLocation = { lat: 41.3100, lng: -72.924 }; // New Haven, CT
 
-  // Observables
+
+  /** KO OBSERVABLES */
+
   self.searchTerm = ko.observable();
   self.sidebarTitle = ko.observable();
   self.selectedVenueData = ko.observable();
@@ -243,6 +242,7 @@ var ViewModel = function() {
   self.isSidebarActive = ko.observable(true);
   self.isDropPanelActive = ko.observable(false);
   self.isError = ko.observable(false);
+
 
   /** VIEWMODEL METHODS */
   
@@ -285,7 +285,8 @@ var ViewModel = function() {
   */
   self.setInfoWindow = function(data) {
     var content = "";
-    content += '<h4 class="iw-title"><a class="iw-link" href="' + data.url + '" target="_blank">';
+    content += '<h4 class="iw-title"><a class="iw-link" href="' + data.url;
+    content += '" target="_blank">';
     content += data.name + "</a></h4>";
     content += '<p class="iw-address">' + data.address + '</p>';
     content += '<p class="iw-para"><i class="fa fa-phone iw-icon"></i>';
@@ -304,7 +305,7 @@ var ViewModel = function() {
 
     // Center map on marker
     // Note - Use cloneCoords to avoid changing position value of venue
-    // due to object eference 
+    // due to object reference/pointer 
     var coords = cloneCoords(data.position);
     if (self.isSidebarActive()) {
       // Offset center if sidebar is open
@@ -315,9 +316,7 @@ var ViewModel = function() {
   };
 
   /**
-   * Request response from Foursquare API with user entered earch term
-   * @param {string} foo This is a param with a description too long to fit in
-   *     one line.
+   * Request response from Foursquare API with user entered search term
    */
   self.getVenues =function() {
     // Get search term from input
@@ -344,6 +343,7 @@ var ViewModel = function() {
     // Get venue data via AJAX call to Foursquare API
     getFoursquareData(searchTerm);
   };
+
 
   /** AJAX HELPERS */
 
@@ -372,7 +372,7 @@ var ViewModel = function() {
       method: "GET",
       success: foursquareCallback
     });
-  };
+  }
 
   /**
    * Handle response from call to Foursquare API
@@ -401,7 +401,7 @@ var ViewModel = function() {
     var results = response.response.groups[0].items;
     var data = parseFoursquareData(results);
     loadSideBar(data);
-  };
+  }
 
   /**
    * Parse Foursquare API response data and create FoursquareVenue object
@@ -434,7 +434,7 @@ var ViewModel = function() {
     }
 
     return foursquareData;
-  };
+  }
 
   /**
    * Empty and load venueList observable array thereby updating sidebar view
@@ -468,6 +468,7 @@ var ViewModel = function() {
   function cloneCoords(coords) {
     return { lat: coords.lat, lng: coords.lng };
   }
+
 
   /** GOOGLE MAP API HELPERS */
 
@@ -557,7 +558,7 @@ var ViewModel = function() {
   }
 
   /**
-   * Set on load event initialize map and fetch default locations
+   * Set on load event, initialize map, and fetch default locations
    */
   google.maps.event.addDomListener(window, "load", function() {
     // Add map
