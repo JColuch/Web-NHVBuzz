@@ -364,7 +364,7 @@ var ViewModel = function() {
     var requestUrl = "https://api.foursquare.com/v2/venues/explore";
     requestUrl += "?client_id=" + CLIENT_ID;
     requestUrl += "&client_secret=" + CLIENT_SECRET;
-    requestUrl += "&v=20130815";
+    requestUrl += "&=20130815";
     requestUrl += "&ll=" + location; // lat,lng
     requestUrl += "&query=" + query;
     requestUrl += "&limit=10";
@@ -373,8 +373,25 @@ var ViewModel = function() {
       url: requestUrl,
       dataType: "jsonp",
       method: "GET",
-      success: foursquareCallback
+      success: foursquareCallback,
+      error: showError
     });
+  }
+
+  /**
+   * Handle response from call to Foursquare API
+   * @param {object} response Response object from call to Foursquare API
+   */
+  function showError(msg) {
+    // If no msg provided, use default
+    if (!msg) { 
+      var msg = "Please try again later ";
+      msg += "or contact the imaginary support team!";
+    }
+    
+    // Display error on view
+    self.isError(true);
+    self.errorMessage(msg);
   }
 
   /**
@@ -387,14 +404,7 @@ var ViewModel = function() {
 
     // Handle invalid response
     if (statusCode !== 200) {
-      // Display error on view
-      self.isError(true);
-
-      // Show appropriate message
-      var msg = "Please try again later";
-      msg += "or contact the imaginary support team!";
-      self.errorMessage(msg);
-
+      showError();
       return;
     }
 
@@ -417,8 +427,7 @@ var ViewModel = function() {
     // Handle case where no results found
     var len = results.length;
     if (!len) {
-      self.isError(true);
-      self.errorMessage("No results found, try again!");
+      showError("No results found, try again!");
       return [];
     }
 
