@@ -32,7 +32,7 @@ Production: [Click here to view the project](http://joelcolucci.com/Web-NHVBuzz/
 
 Development: [Click here to view the project](http://joelcolucci.com/Web-NHVBuzz)
 
-###How to use
+###How To Use
 
 ####Search for places in New Haven, Connecticut
 * In the search input field: Enter an establishment type (ex: restaurants, coffee, bars, or hotels)
