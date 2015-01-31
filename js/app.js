@@ -278,7 +278,7 @@ var ViewModel = function() {
 
   /**
    * Use venue data to add content to and display infoWindow
-   * @param {project.FoursquareVenue} venue FoursquareVenue object
+   * @param {project.FoursquareVenue} data FoursquareVenue object
   */
   self.setInfoWindow = function(data) {
     var content = "";
@@ -376,8 +376,8 @@ var ViewModel = function() {
   }
 
   /**
-   * Handle response from call to Foursquare API
-   * @param {object} response Response object from call to Foursquare API
+   * Display error to user with desired message
+   * @param {string} msg String describing type of error
    */
   function showError(msg) {
     // If no msg provided, use default
@@ -504,7 +504,7 @@ var ViewModel = function() {
 
   /**
    * Create Google Map Marker
-   * @param {project.FoursquareVenue} venue FoursquareVenue object
+   * @param {project.FoursquareVenue} data FoursquareVenue object
    */
   function createMarker(data) {
     var name = data.name;
