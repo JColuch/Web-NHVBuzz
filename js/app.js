@@ -214,9 +214,6 @@ FoursquareVenue.prototype.getPhoneLink = function(data) {
   #VIEWMODEL
 \* --------------------------- */
 
-/**
- * Get position coords from location object
- */
 var ViewModel = function() {
   var self = this;
 
