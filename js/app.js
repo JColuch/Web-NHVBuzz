@@ -238,7 +238,7 @@ var ViewModel = function() {
   // UI flag observables
   self.isSidebarActive = ko.observable(true);
   self.isDropPanelActive = ko.observable(false);
-  self.isError = ko.observable(false);
+  self.isError = ko.observable(true);
 
 
   /** VIEWMODEL METHODS */
@@ -566,6 +566,22 @@ var ViewModel = function() {
     clearMarkers();
     markers = [];
   }
+
+  /**
+   * Set default error message to handle scenario where Foursquare API
+   * is blocked, if not blocked error will be cleared as normal
+   */
+   showError("Something went wrong! Contact the imaginary support team!");
+
+  // /**
+  //  * Test that google.maps API is available
+  //  */
+  //  if (!(typeof google === 'object') || !(typeof google.maps === 'object')) {
+  //   console.log("SHIT GOT REAL");
+  //   return
+  //  }
+
+
 
   /**
    * Set on load event, initialize map, and fetch default locations
