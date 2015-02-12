@@ -222,8 +222,9 @@ var ViewModel = function() {
 
   // Variables scoped to ViewModel
   var map;
+  var infoWindow;
+
   var markers = [];
-  var infoWindow = new google.maps.InfoWindow();
   var currentLocation = { lat: 41.3100, lng: -72.924 }; // New Haven, CT
 
 
@@ -239,6 +240,7 @@ var ViewModel = function() {
   self.isSidebarActive = ko.observable(true);
   self.isDropPanelActive = ko.observable(false);
   self.isError = ko.observable(true);
+  self.isMapError = ko.observable(false);
 
 
   /** VIEWMODEL METHODS */
@@ -500,6 +502,7 @@ var ViewModel = function() {
 
     // Set ViewModel scoped variables
     map = new google.maps.Map(mapContainer, mapOptions);
+    infoWindow = new google.maps.InfoWindow();
   }
 
   /**
@@ -567,32 +570,40 @@ var ViewModel = function() {
     markers = [];
   }
 
-  /**
-   * Set default error message to handle scenario where Foursquare API
-   * is blocked, if not blocked error will be cleared as normal
-   */
-   showError("Something went wrong! Contact the imaginary support team!");
 
-  // /**
-  //  * Test that google.maps API is available
-  //  */
-  //  if (!(typeof google === 'object') || !(typeof google.maps === 'object')) {
-  //   console.log("SHIT GOT REAL");
-  //   return
-  //  }
-
-
+  /** LOADING INTERFACE */
 
   /**
-   * Set on load event, initialize map, and fetch default locations
+   * Ensure Foursquare and Google Maps APIs are available to load interface.
+   *    If not notify user via error messages
    */
-  google.maps.event.addDomListener(window, "load", function() {
-    // Add map
-    initializeMap();
+  function loadInterface() {
+     //Set default error message to handle if Foursquare API is blocked
+     showError("Something went wrong! Contact the imaginary support team!");
+     
+    // Check that google maps API is accessible
+    // Inspiration: http://stackoverflow.com/questions/9228958/
+    // how-to-check-if-google-maps-api-is-loaded
+    if (!(typeof google === 'object') || !(typeof google.maps === 'object')) {
+      console.log("shit got real nasty");
+      self.isMapError(true);
+      return;
+    }
 
-    // Fetch default places
-    self.getVenues();
-  });
+    /**
+     * Set on load event, initialize map, and fetch default locations
+     */
+    google.maps.event.addDomListener(window, "load", function() {
+      // Add map
+      initializeMap();
+
+      // Fetch default places
+      self.getVenues();
+    });
+  }
+
+  // Load the interface via API calls to Google Maps ans Foursquare
+  loadInterface();
 };
 
 ko.applyBindings(new ViewModel());

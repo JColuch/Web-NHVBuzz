@@ -36,6 +36,9 @@ input[type="text"] {
 }
 
 
+
+
+
 /*------------------------------------*\
         #HELPER-STYLES
 \*------------------------------------*/
@@ -120,6 +123,25 @@ input[type="text"] {
 .static-map {
   border-radius: 4px;
 }
+
+.map-error {
+  display: none;
+}
+
+.map-error-active {
+  display: block;
+  height: 50%;
+  margin: 150px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #B65F5F;
+}
+
+.map-error-active:after {
+  content: "Uh oh! Please contact the imaginary support team.";
+}
+
 
 
 

@@ -93,7 +93,9 @@
       </div>
     </div> <!-- End. .drop-panel -->
   </div>  <!-- End .sidebar -->
-  <div id="map-canvas"></div>
+  <div id="map-canvas">
+    <div class="map-error" data-bind="css: { 'map-error-active': isMapError() }"></div>
+  </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <!-- build:js -->
   <script src="js/knockout-latest.js"></script>

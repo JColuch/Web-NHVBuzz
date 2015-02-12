@@ -1,5 +1,7 @@
 Resources Utilized
 
+http://www.digitaltrends.com/computing/how-to-block-a-website/2/
+http://stackoverflow.com/questions/9228958/how-to-check-if-google-maps-api-is-loaded
 https://developers.google.com/maps/web/
 http://code.tutsplus.com/tutorials/mvc-for-noobs--net-10488
 https://developers.google.com/custom-search/json-api/v1/overview
