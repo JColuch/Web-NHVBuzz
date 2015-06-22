@@ -28,9 +28,9 @@ All resources used/referenced are listed in the file resources.txt.
 Code snippets used are commented with their source.
 
 ###Project Demo
-Production: [Click here to view the project](http://joelcolucci.com/Web-NHVBuzz/build)
+Production: [Click here to view the project](http://joelcolucci.com/newhaven-buzz/build)
 
-Development: [Click here to view the project](http://joelcolucci.com/Web-NHVBuzz)
+Development: [Click here to view the project](http://joelcolucci.com/newhaven-buzz)
 
 ###How To Use
 
